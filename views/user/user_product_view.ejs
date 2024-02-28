@@ -1,4 +1,4 @@
-<!-- views/index.ejs -->
+<!-- views/user/user_product_view.ejs -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -7,20 +7,17 @@
         <link rel="stylesheet" href="/styles/styles.css">
         <title>User Product View</title>
     </head>
+
     <body>
         <!-- Website Title -->
         <div>
             <h1 >Hamster Food Store</h1>
         </div>
+
         <!-- Navigation Bar -->
-        <div class="navbar">
-            <span><a href="/listings">Listings</a></span>
-            <span><a href="/vendor_dashboard">Vendor Dashboard</a></span>
-            <span><a href="/user_cart">Cart</a></span>
-            <span><a href="/profile">Profile</a></span>
-        </div>
+        <%- include ('../partials/navigation_bar.ejs') %>
 
         <!-- Content -->
-        <h1><%= "View Product" %></h1>
+        <h1>View Product</h1>
     </body>
 </html>
