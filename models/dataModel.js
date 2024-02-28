@@ -1,8 +1,19 @@
 const dataModel = {
-    getData: () => {
-      // Logic to fetch data from a source
-      return 'Hello, LeeRoy!';
+    getAllListings: () => {
+      return 'all listings';
+    },
+    getProfile: () => {
+      return 'profile';
+    },
+    getProduct: (product_id) => {
+      return 'product id = ' + product_id ;
+    },
+    getCart: () => {
+      return 'cart';
+    },
+    getOrders: () => {
+      return 'orders';
     },
   };
   
-  module.exports = dataModel;
+module.exports = dataModel;
