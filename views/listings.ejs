@@ -1,6 +1,5 @@
-<!-- views/index.ejs -->
-<!DOCTYPE html>
 <!-- views/listings.ejs -->
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -12,12 +11,24 @@
     <body>
         <!-- Website Title -->
         <div>
-            <h1 >Hamster Food Store</h1>
+            <h1 >hamsterstore</h1>
         </div>
 
         <%- include ('./partials/navigation_bar.ejs') %>
 
         <!-- Content -->
         <h1>All Listings</h1>
+        
+        <div class="all_listings">
+            <%
+            for (let i = 0; i < 12; i++) {
+            %>            
+                <a href="/user_product_view" style="width: 25%; text-decoration: none; color: inherit;">
+                    <%- include ('./partials/listing_subview_square.ejs') %>
+                </a>
+            <%
+            }
+            %>
+        </div>
     </body>
 </html>

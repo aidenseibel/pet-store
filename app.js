@@ -1,5 +1,5 @@
 const express = require('express');
-
+const store_name = "hamsterstore"
 const app = express(); // init express
 const port = 3000; // use port 3000
 

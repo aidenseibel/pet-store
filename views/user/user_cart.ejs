@@ -11,13 +11,29 @@
     <body>
         <!-- Website Title -->
         <div>
-            <h1 >Hamster Food Store</h1>
+            <h1 >hamsterstore</h1>
         </div>
 
         <!-- Navigation Bar -->
         <%- include ('../partials/navigation_bar.ejs') %>
 
         <!-- Content -->
-        <h1>Shopping Cart%></h1>
+        <div style="display: flex; flex-flow: row nowrap; justify-content: space-between; width: 65%;"> 
+            <h1>Shopping Cart%></h1>
+            <h1><a href="/user_checkout"> Checkout ($20)</a></h1>
+        </div>
+        <div class="shopping_cart_listings">
+            <%
+            for (let i = 0; i < 4; i++) {
+            %>
+                <style>
+                </style>
+                <a href="/user_product_view" style="width: 100%; text-decoration: none; color: inherit;">
+                    <%- include ('../partials/listing_subview_list.ejs') %>
+                </a>     
+            <%
+            }
+            %>
+        </div>
     </body>
 </html>
