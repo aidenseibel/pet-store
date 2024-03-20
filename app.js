@@ -1,10 +1,13 @@
 const express = require('express');
+const mysql = require("mysql");
+const dbRoutes = require("./models/dataModel"); 
 
 const app = express(); // init express
 const port = 3000; // use port 3000
 
 app.use(express.static('public')); // import folder public (contains styles and images)
 app.use(express.json()); // import json
+//app.use(dbRoutes);
 
 const mainController = require('./controllers/mainController'); // init mainController, our view controller
 

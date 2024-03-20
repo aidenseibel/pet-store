@@ -5,7 +5,8 @@ const mainController = {
     res.render('onboarding');
   },
   getProfile: (req, res) => {
-    const profile = dataModel.getProfile();
+    const d = 'secondusertest'
+    const profile = dataModel.getProfile(d);
     res.render('profile', { profile });
   },
   getListings: (req, res) => {
