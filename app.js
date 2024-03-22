@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require("mysql");
 const dbRoutes = require("./models/dataModel"); 
+const bodyParser = require('body-parser')
 
 const app = express(); // init express
 const port = 3000; // use port 3000
@@ -8,6 +9,13 @@ const port = 3000; // use port 3000
 app.use(express.static('public')); // import folder public (contains styles and images)
 app.use(express.json()); // import json
 //app.use(dbRoutes);
+
+app.use( bodyParser.json() );       // to support JSON-encoded html bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded html bodies
+  extended: true
+})); 
+app.use(express.json());       // to support JSON-encoded html bodies
+app.use(express.urlencoded()); // to support URL-encoded html bodies
 
 const mainController = require('./controllers/mainController'); // init mainController, our view controller
 
@@ -24,6 +32,9 @@ app.get('/user_cart', mainController.getUserCart);
 app.get('/user_checkout', mainController.getUserCheckout);
 app.get('/vendor_dashboard', mainController.getVendorDashboard);
 app.get('/vendor_product_view', mainController.getVendorProductView);
+
+// Post Routes
+app.post('/onboarding', mainController.postOnboarding);
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

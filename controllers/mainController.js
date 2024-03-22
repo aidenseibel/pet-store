@@ -37,6 +37,13 @@ const mainController = {
     const product = dataModel.getProduct(product_id);
     res.render('vendor/vendor_product_view', { product });
   },
+  postOnboarding:(req,res) => {
+    //handling the POST request made by the form on onboarding.js
+    var newEmail = req.body.newEmail
+    var newUser = req.body.newUsername
+    var newPassword = req.body.newPassword
+    dataModel.insertProfile(newEmail,newUser,newPassword);
+  },
 };
 
 module.exports = mainController;

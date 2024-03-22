@@ -25,18 +25,23 @@
             <!-- Create Account -->
             <div style="padding: 20px;">
                 <h3 style="padding: 20px;">Create your account to get started.</h3>
-                <form style="padding: 20px;">
-                    <input type="text" placeholder="Email">
-                </form>
-                <form style="padding: 20px;">
-                    <input type="text" placeholder="Password">
-                </form>
-                <form style="padding: 20px;">
+                <form method = "POST" style="padding: 20px;">
+		  <div>
+                    <input name="newEmail" "id=newEmail" type="text" placeholder="Email">
+		  </div>
+		  <div>
+                    <input name="newUsername" "id=newUsername" type="text" placeholder="Username">
+		  </div>
+		  <div>
+                    <input name="newPassword" "id=newPassword" type="text" placeholder="Password">
+		  </div>
+		  <div>
                     <input type="text" placeholder="Confirm Password">
+		  </div>
+		  <div>
+		    <button>Create Account</button>
+		  </div>
                 </form>
-                <div style="text-align: left; padding: 20px;">
-                    <a href="../listings"><h3>Create Account</h3></a>
-                </div>
             </div>
 
             <!-- Log in --> 
@@ -54,4 +59,8 @@
             </div>
         </div>
     </body>
+
+     <script>
+	
+     </script> 
 </html>
