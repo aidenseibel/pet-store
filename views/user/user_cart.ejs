@@ -9,31 +9,49 @@
     </head>
     
     <body>
-        <!-- Website Title -->
-        <div>
-            <h1 >hamsterstore</h1>
-        </div>
-
         <!-- Navigation Bar -->
         <%- include ('../partials/navigation_bar.ejs') %>
 
         <!-- Content -->
-        <div style="display: flex; flex-flow: row nowrap; justify-content: space-between; width: 65%;"> 
-            <h1>Shopping Cart%></h1>
-            <h1><a href="/user_checkout"> Checkout ($20)</a></h1>
+        <h2 style="margin-left: 2%;">Shopping Cart%></h2>
+
+        <div class="shopping_cart_view">
+            <div class="shopping_cart_listings">
+                <%
+                for (let i = 0; i < 4; i++) {
+                %>
+                    <style>
+                    </style>
+                    <a href="/user_product_view" style="text-decoration: none; color: inherit;">
+                        <%- include ('../partials/listing_subview_list.ejs') %>
+                    </a>     
+                <%
+                }
+                %>
+            </div>
+            <div class="shopping_cart_summary">
+                <h2>Cart Summary</h2>
+                <div class="product_information_row">
+                    <p>Products</p>
+                    <p>8 </p>
+                </div>
+                <div class="product_information_row">
+                    <p>Subtotal</p>
+                    <p>$26.99</p>
+                </div>
+                <div class="product_information_row">
+                    <p>Shipping</p>
+                    <p>$13.49</p>
+                </div>
+                <div class="product_information_row">
+                    <p>Total</p>
+                    <p>$39.99</p>
+                </div>
+                <a href="/user_checkout">
+                    <h2>Go to Checkout!</h2>
+                </a>
+            </div>
         </div>
-        <div class="shopping_cart_listings">
-            <%
-            for (let i = 0; i < 4; i++) {
-            %>
-                <style>
-                </style>
-                <a href="/user_product_view" style="width: 100%; text-decoration: none; color: inherit;">
-                    <%- include ('../partials/listing_subview_list.ejs') %>
-                </a>     
-            <%
-            }
-            %>
-        </div>
+        
     </body>
 </html>

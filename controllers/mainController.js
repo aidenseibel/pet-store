@@ -7,7 +7,13 @@ const mainController = {
   getProfile: (req, res) => {
     const d = 'secondusertest'
     const profile = dataModel.getProfile(d);
-    res.render('profile', { profile });
+    
+    // checks to see if a user is logged in, redirects to onboarding if not
+    if(profile == ""){
+      res.render('profile', { profile });
+    }else{
+      res.render('onboarding');
+    }
   },
   getListings: (req, res) => {
     const all_listings = dataModel.getAllListings();

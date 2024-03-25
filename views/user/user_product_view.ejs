@@ -9,24 +9,44 @@
     </head>
 
     <body>
-        <!-- Website Title -->
-        <div>
-            <h1 >hamsterstore</h1>
-        </div>
-
-        <!-- Navigation Bar -->
+         <!-- Navigation Bar -->
         <%- include ('../partials/navigation_bar.ejs') %>
 
         <!-- Content -->
-        <h1>View Product</h1>
+        <h2 style="margin-left: 2%; margin-bottom: -5px;">Happy Mix</h2>
+
         <div class="user_product_view">
-            <img src="https://www.creativefabrica.com/wp-content/uploads/2023/04/06/Cute-Hamster-kawaii-clipart-Graphics-66428546-1.jpg" alt="Image" style="max-width: 50%; max-height: 50%;">
             <div class="user_product_view_info">
-                <h1 class="listing_subview_title">Happy Mix</h1>
-                <h1 class="listing_subview_price">$5</h1>
+                <div class="product_information_row">
+                    <p>Vendor</p>
+                    <p class="product_information_detail_text">vendor name </p>
+                </div>
+                <div class="product_information_row">
+                    <p>Vendor Location</p>
+                    <p class="product_information_detail_text">vendor location</p>
+                </div>
+                <div class="product_information_row">
+                    <p>Amount</p>
+                    <p class="product_information_detail_text">amount</p>
+                </div>
+                <div class="product_information_row">
+                    <p>Ingredients</p>
+                    <p class="product_information_detail_text">ingredient 1, ingredient 2, ingredient 3</p>
+                </div>
+                <div class="product_information_row">
+                    <p>Description</p>
+                    <p class="product_information_detail_text">lorem ipsum</p>
+                </div>
+            </div>
+            <div class="product_view_image_container">
+                <img class="product_view_image" src="https://www.creativefabrica.com/wp-content/uploads/2023/04/06/Cute-Hamster-kawaii-clipart-Graphics-66428546-1.jpg" alt="Image">
             </div>
         </div>
 
-        <h1><a class="nav_bar_buttons" href="/user_cart">Add to Cart</a></h1>
+        <div class="add_to_cart">
+            <h1 style="margin-left: 2%; flex-grow: 1;">$15.99</h1>
+            <input class="quantity_form_input" type="text" placeholder="1">
+            <h2><a class="nav_bar_buttons" href="/user_cart">Add to Cart</a></h2>
+        </div>
     </body>
 </html>
