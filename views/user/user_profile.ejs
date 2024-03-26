@@ -1,4 +1,4 @@
-<!-- views/profile.ejs -->
+<!-- views/user_profile.ejs -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -11,7 +11,7 @@
 
     <body>
          <!-- Navigation Bar -->
-        <%- include ('./partials/navigation_bar.ejs') %>
+        <%- include ('../partials/navigation_bar.ejs') %>
 
         <!-- Header -->
         <div style="margin-left: 2%; display: flex; align-items: column;">
@@ -19,26 +19,31 @@
             <h2>- Leeroy Tiger</h2>
         </div>
 
-        <!-- Orders -->
+        <!-- Main Container -->
         <div class="user_profile_view">
+
+            <!-- Orders Container - Left side of page -->
             <div class="user_profile_orders_container">
+
+                <!-- Current Orders - shown first -->
                 <div class="user_profile_current_orders_view">
                     <h3>Current Orders</h3>
                     <%
                     for (let i = 0; i < 2; i++) {
                     %>            
-                        <%- include ('./partials/user_order_subview.ejs') %>
+                        <%- include ('../partials/user_order_subview.ejs') %>
                     <%
                     }
                     %>    
                 </div>
 
+                <!-- Previous Orders - shown second -->
                 <div class="user_profile_previous_orders_view">
                     <h3>Previous Orders</h3>
                     <%
                     for (let i = 0; i < 4; i++) {
                     %>            
-                        <%- include ('./partials/user_order_subview.ejs') %>
+                        <%- include ('../partials/user_order_subview.ejs') %>
                     <%
                     }
                     %>
@@ -47,21 +52,29 @@
             </div>
             
 
-            <!-- User Statistics -->
-            <div class="user_profile_statistics_view">
+            <!-- User Information - Right side of page -->
+            <div class="user_profile_information_view">
                 <h3>My User Stats</h3>
+
+                <!-- Total Orders -->
                 <div class="information_row">
                     <p>Total Orders</p>
                     <p style="font-family: 'Poppins Light';">8 </p>
                 </div>
+
+                <!-- User Physical Address -->
                 <div class="information_row">
                     <p>Address</p>
                     <p style="font-family: 'Poppins Light'; font-size: small;">1 Trinity Place, San Antonio, Texas 78212</p>
                 </div>
+
+                <!-- User username -->
                 <div class="information_row">
                     <p>Username</p>
                     <p style="font-family: 'Poppins Light';">leeroy-tiger1 </p>
                 </div>
+
+                <!-- User email -->
                 <div class="information_row">
                     <p>Email</p>
                     <p style="font-family: 'Poppins Light';">leeroy_is_the_best@trinity.edu </p>

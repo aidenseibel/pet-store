@@ -14,12 +14,17 @@
          <!-- Navigation Bar -->
         <%- include ('../partials/navigation_bar.ejs') %>
 
-        <!-- Content -->
+        <!-- Title -->
         <h2 style="margin-left: 2%;">Checkout</h2>
 
-        <div class="checkout_view">
-            <div class="checkout_information_views">
-                <div class="checkout_information_subview">
+        <!-- Main Container -->
+        <div class="user_checkout_view">
+
+            <!-- Checkout Information - Left Side of Page -->
+            <div class="user_checkout_information_view">
+
+                <!-- User Address Information for Shipping -->
+                <div class="user_checkout_information_subview">
                     <h2>Shipping Information</h2>
                     <div class="information_row">
                         <p>Address</p>
@@ -39,7 +44,9 @@
                     </div>
 
                 </div>
-                <div class="checkout_information_subview">
+
+                <!-- User Payment Information -->  
+                <div class="user_checkout_information_subview">
                     <h2>Payment Information</h2>
                     <div class="information_row">
                         <p>Payment Type</p>
@@ -60,7 +67,9 @@
                 </div>    
             </div>
 
-            <div class="checkout_box">
+
+            <!-- Order Details - Right Side of Page, Includes Submit Order Button -->
+            <div class="user_checkout_order_details_container">
                 <h2>Order Details</h2>
 
                 <div class="information_row">
@@ -87,7 +96,9 @@
                     <h3>Total</h3>
                     <h3 style="font-family: 'Poppins Light';">29.05</h3>
                 </div>
-                <button class="submit_order_button">Submit Order</button>
+
+                <!-- Submit Order Button -->
+                <button class="user_checkout_submit_order_button">Submit Order</button>
             </div>
         </div>
     </body>

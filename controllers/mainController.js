@@ -11,11 +11,11 @@ const mainController = {
     const profile = dataModel.getProfile(d);
     
     // checks to see if a user is logged in, redirects to onboarding if not
-    if(profile == ""){
-      res.render('profile', { profile });
-    }else{
-      res.render('onboarding');
-    }
+    // if(profile == ""){
+      res.render('user/user_profile', { profile });
+    // }else{
+    //   res.render('onboarding');
+    // }
   },
 
 

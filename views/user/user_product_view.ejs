@@ -13,11 +13,14 @@
          <!-- Navigation Bar -->
         <%- include ('../partials/navigation_bar.ejs') %>
 
-        <!-- Content -->
+        <!-- Title -->
         <h2 style="margin-left: 2%; margin-bottom: -5px;">Happy Mix</h2>
 
+        <!-- Main Container -->
         <div class="user_product_view">
-            <div class="user_product_view_info">
+
+            <!-- Product information - Left Side-->
+            <div class="user_product_info">
                 <div class="information_row">
                     <p>Vendor</p>
                     <p class="product_information_detail_text">vendor name </p>
@@ -39,11 +42,15 @@
                     <p class="product_information_detail_text">lorem ipsum</p>
                 </div>
             </div>
+
+            <!-- Product Image - Right Side, Embedded in a Container-->
             <div class="product_view_image_container">
                 <img class="product_view_image" src="https://www.creativefabrica.com/wp-content/uploads/2023/04/06/Cute-Hamster-kawaii-clipart-Graphics-66428546-1.jpg" alt="Image">
             </div>
         </div>
 
+
+        <!-- Add to Cart Button - Bottom of Page, includes quantity -->
         <div class="add_to_cart">
             <h1 style="margin-left: 2%; flex-grow: 1;">$15.99</h1>
             <input class="quantity_form_input" type="text" placeholder="1">

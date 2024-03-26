@@ -13,41 +13,60 @@
         <!-- Navigation Bar -->
         <%- include ('../partials/navigation_bar.ejs') %>
 
-        <!-- Content -->
+        <!-- Title -->
         <h2 style="margin-left: 2%;">Shopping Cart%></h2>
 
+        <!-- Main Container -->
         <div class="shopping_cart_view">
+            
+            <!-- Shopping Cart Listings - Left Side of Page -->
             <div class="shopping_cart_listings">
                 <%
                 for (let i = 0; i < 4; i++) {
                 %>
-                    <style>
-                    </style>
                     <a href="/user_product_view" style="text-decoration: none; color: inherit;">
                         <%- include ('../partials/listing_subview_list.ejs') %>
-                    </a>     
+                    </a>
                 <%
                 }
                 %>
             </div>
+            
+            <!-- Cart Summary and Checkout Button - Right Side of Page-->
             <div class="shopping_cart_summary">
                 <h2>Cart Summary</h2>
+
+                <!-- Product Count -->
                 <div class="information_row">
                     <p>Products</p>
                     <p>8 </p>
                 </div>
+
+                <!-- Order Subtotal -->
                 <div class="information_row">
                     <p>Subtotal</p>
                     <p>$26.99</p>
                 </div>
+
+                <!-- Tax -->
+                <div class="information_row">
+                    <p>Tax</p>
+                    <p>$3.49</p>
+                </div>
+
+                <!-- Shipping -->
                 <div class="information_row">
                     <p>Shipping</p>
                     <p>$13.49</p>
                 </div>
+
+                <!-- Order Total -->
                 <div class="information_row">
                     <p>Total</p>
-                    <p>$39.99</p>
+                    <p>$43.99</p>
                 </div>
+
+                <!-- Checkout Button -->
                 <a href="/user_checkout">
                     <h2>Go to Checkout!</h2>
                 </a>

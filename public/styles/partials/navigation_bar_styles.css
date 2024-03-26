@@ -16,16 +16,23 @@
     margin-right: 2%;
 }
 
-.search_box {
+.nav_bar_header{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.nav_bar_search_container {
     flex-grow: 4;
 }
 
-.nav_bar_buttons {
+.nav_bar_button {
     margin-right: 10px;
     flex-grow: 1;
 }
 
-.nav_bar_icon {
+.nav_bar_button_icon {
     max-width: 40px;
     max-height: 40px;
     opacity: 80%;
