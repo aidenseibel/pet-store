@@ -13,32 +13,80 @@
         <%- include ('../partials/navigation_bar.ejs') %>
 
         <!-- Content -->
-        <h1>Checkout</h1>
+        <h2 style="margin-left: 2%;">Checkout</h2>
 
-        <div class="checkout_list">
-            <div>
-                <h2>Shipping Address</h2>
-                <h2>Payment Information</h2>
-                <h2>Appoximate Arrival Date</h2>
-                <h2>Subtotal</h2>
-                <h2>Tax</h2>
-                <h2>Shipping</h2>
+        <div class="checkout_view">
+            <div class="checkout_information_views">
+                <div class="checkout_information_subview">
+                    <h2>Shipping Information</h2>
+                    <div class="product_information_row">
+                        <p>Address</p>
+                        <p>1 Trinity Place</p>
+                    </div>
+                    <div class="product_information_row">
+                        <p>City</p>
+                        <p>San Antonio</p>
+                    </div>
+                    <div class="product_information_row">
+                        <p>State</p>
+                        <p>Texas</p>
+                    </div>
+                    <div class="product_information_row">
+                        <p>Zip</p>
+                        <p>78212</p>
+                    </div>
+
+                </div>
+                <div class="checkout_information_subview">
+                    <h2>Payment Information</h2>
+                    <div class="product_information_row">
+                        <p>Payment Type</p>
+                        <p>Card</p>
+                    </div>
+                    <div class="product_information_row">
+                        <p>Card Type</p>
+                        <p>Visa</p>
+                    </div>
+                    <div class="product_information_row">
+                        <p>Card Number</p>
+                        <p>1234567890</p>
+                    </div>
+                    <div class="product_information_row">
+                        <p>Name on Card</p>
+                        <p>Leeroy </p>
+                    </div>
+                </div>    
             </div>
-            <div style="text-align: right; ">
-                <h2>1 Trinity Place #1949</h2>
-                <h2>Visa Ending in 1234</h2>
-                <h2>March 30th</h2>
-                <h2>19.95</h2>
-                <h2>1.64</h2>
-                <h2>7.46</h2>
+
+            <div class="checkout_box">
+                <h2>Order Details</h2>
+
+                <div class="product_information_row">
+                    <h3>Estimated Delivery</h3>
+                    <p style="font-family: 'Poppins Light';">September 5th (2 days)</p>
+                </div>
+
+                <div class="product_information_row">
+                    <h3>Subtotal</h3>
+                    <h3 style="font-family: 'Poppins Light';">23.96</h3>
+                </div>
+
+                <div class="product_information_row">
+                    <h3>Tax</h3>
+                    <h3 style="font-family: 'Poppins Light';">4.03</h3>
+                </div>
+
+                <div class="product_information_row">
+                    <h3>Estimated Shipping</h3>
+                    <h3 style="font-family: 'Poppins Light';">6.07</h3>
+                </div>
+
+                <div class="product_information_row">
+                    <h3>Total</h3>
+                    <h3 style="font-family: 'Poppins Light';">29.05</h3>
+                </div>
+                <button class="submit_order_button">Submit Order</button>
             </div>
-        </div>
-        <div class="checkout_list">
-            <h1>Total</h1>
-            <h1>29.05</h1>
-        </div>
-        <div style="text-align: right; width: 60%;">
-            <a href="../listings"><h1>Submit Order</h1></a>
         </div>
     </body>
 </html>

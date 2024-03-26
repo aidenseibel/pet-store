@@ -225,12 +225,77 @@
     font-size: small;
 }
 
-.checkout_list{
-    width: 60%;
+.checkout_view{
+    border-radius: 10px;
+    padding: 2%;
+    margin-top: -2%;
+    gap: 5%;
+    
     display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.checkout_information_views{
+    width: 40%;
+}
+
+.checkout_information_subview{
+    padding: 5%;
+    background-color: lightpink;
+    margin-bottom: 2%;
+    border-radius: 10px;
+}
+
+.checkout_box{
+    width: 35%;
+    background-color: lightblue;
+    padding: 2%;
+    border-radius: 10px;
+}
+
+.submit_order_button{
+    margin-top: 5%;
+    padding: 5%;
+    border-radius: 5px;
+    background-color: #ffffff;
+    font-family: "Poppins";
+}
+
+.user_profile_view{
+    padding: 2%;
+    margin-top: -2%;
+    gap: 5%;
+    
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.user_profile_statistics_view{
+    width: 35%;
+    background-color: lightblue;
+    padding: 2%;
+    border-radius: 10px;
+}
+
+.user_profile_orders_container{
+    width: 65%;
+}
+
+.user_profile_current_orders_view{
+    background-color: lightpink;
+    padding: 2%;
+    border-radius: 10px;
+    margin-bottom: 2%;
+}
+
+.user_profile_previous_orders_view{
+    background-color: lightpink;
+    padding: 2%;
+    border-radius: 10px;
 }
 
 .vendor_order_item{
