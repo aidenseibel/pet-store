@@ -1,0 +1,37 @@
+.checkout_view{
+    border-radius: 10px;
+    padding: 2%;
+    margin-top: -2%;
+    gap: 5%;
+    
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.checkout_information_views{
+    width: 40%;
+}
+
+.checkout_information_subview{
+    padding: 5%;
+    background-color: lightpink;
+    margin-bottom: 2%;
+    border-radius: 10px;
+}
+
+.checkout_box{
+    width: 35%;
+    background-color: lightblue;
+    padding: 2%;
+    border-radius: 10px;
+}
+
+.submit_order_button{
+    margin-top: 5%;
+    padding: 5%;
+    border-radius: 5px;
+    background-color: #ffffff;
+    font-family: "Poppins";
+}

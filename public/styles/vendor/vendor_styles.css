@@ -1,0 +1,61 @@
+.vendor_order_item{
+    background-color: #ffd9d9;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+    gap: 2%;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vendor_dashboard_view{
+    border-radius: 10px;
+    padding: 2%;
+    margin-top: -2%;
+    gap: 5%;
+    
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.vendor_orders{
+    width: 70%;
+    flex-grow: 2;
+}
+
+.vendor_gigs_summary{
+    width: 30%;
+    padding: 2%;
+    border-radius: 10px;
+    flex-grow: 1;
+    background-color: #f3f3f3;
+}
+
+.vendor_order_info_container{
+    display: flex;
+    flex-flow: column nowrap;
+    flex-grow: 3;
+}
+
+.vendor_order_info{
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1%;
+    margin-top: -1%;
+    margin-bottom: -1%;
+}
+
+.vendor_order_subinfo{
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 1%;
+    font-family: 'Poppins Light';
+    font-size: smaller;
+    margin-top: -1%;
+    margin-bottom: -1%;
+}
