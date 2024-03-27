@@ -62,91 +62,53 @@ const mainController = {
   getOnboarding: (req, res) => {
     res.render('onboarding');
   },
-
   getProfile: (req, res) => {
     const d = 'secondusertest'
-    // const profile = dataModel.getProfile(d);
-    
-    const profile = sample_user;
-
-    // checks to see if a user is logged in, redirects to onboarding if not
-    // if(profile == ""){
-      res.render('user/user_profile', { profile });
-    // }else{
-    //   res.render('onboarding');
-    // }
+    const profile = dataModel.getProfile(d);
+    res.render('profile', { profile });
   },
-
-
   getListings: (req, res) => {
-    // const all_listings = dataModel.getAllListings();
-    const all_listings = sample_products;
+    var all_listings = [];
+
+    dataModel.getAllListings(function(all_listings) {
+
+    console.log("all_listings:");
+    console.log(all_listings);
+
+    });
+
     const profile = dataModel.getProfile();
     res.render('listings', { all_listings, profile });
   },
-
-
   getUserProductView: (req, res) => {
-    // const product_id = req.body.product_id;
-    // const product = dataModel.getProduct(product_id);
-
-    const product = sample_products[2];
-
-    console.log(product);
-
+    const product_id = req.body.product_id;
+    const product = dataModel.getProduct(product_id);
     res.render('user/user_product_view', { product });
   },
-
-
   getUserCart: (req, res) => {
-    // const profile = dataModel.getProfile();
-    // const cart = dataModel.getCart(profile);
-    const cart = sample_products;
+    const cart = dataModel.getCart();
     res.render('user/user_cart', { cart });
   },
-
-
   getUserCheckout: (req, res) => {
-    const profile = dataModel.getProfile();
     const cart = dataModel.getCart();
-    res.render('user/user_checkout', { profile, cart });
+    res.render('user/user_checkout', { cart });
   },
-
-
-  getNotAVendorView: (req, res) => {
-    res.render('vendor/not_a_vendor_view')
-  },
-
-
   getVendorDashboard: (req, res) => {
-    // const profile = dataModel.getProfile();
+    const profile = dataModel.getProfile();
     const orders = dataModel.getOrders();
-
-    const profile = sample_user;
-
-    // lil logic check to make sure you're a vendor
-    if(profile.is_vendor){
-      res.render('vendor/vendor_dashboard', { profile, orders });
-    }
-    else{
-      res.render('vendor/not_a_vendor_view', { profile, orders });
-    }
+    res.render('vendor/vendor_dashboard', { profile, orders });
   },
-
-  getVendorListings: (req, res) => {
-    // const profile = dataModel.getProfile();
-
-    const profile = sample_user;
-    const vendor_listings = sample_products;
-    
-    res.render('vendor/vendor_listings', { profile, vendor_listings });
-  },
-
-  
   getVendorProductView: (req, res) => {
     const product_id = req.body.product_id;
     const product = dataModel.getProduct(product_id);
     res.render('vendor/vendor_product_view', { product });
+  },
+  postOnboarding:(req,res) => {
+    //handling the POST request made by the form on onboarding.js
+    var newEmail = req.body.newEmail
+    var newUser = req.body.newUsername
+    var newPassword = req.body.newPassword
+    dataModel.insertProfile(newEmail,newUser,newPassword);
   },
 };
 
