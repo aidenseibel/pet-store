@@ -12,16 +12,15 @@
 
 .user_product_info{
     display: flex;
-    padding: 3%;
+    padding: 2%;
     border-radius: 10px;
     background-color: #ffd9d9;
     flex-direction: column;
-    flex-grow: 2;
+    width: 50%;
 }
 
 .product_view_image_container{
-    min-width: 400px;
-    width: 400px;
+    width: 50%;
     height: 400px;
     overflow: hidden;
     flex-grow: 1;

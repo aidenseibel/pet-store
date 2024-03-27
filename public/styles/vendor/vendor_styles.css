@@ -59,3 +59,15 @@
     margin-top: -1%;
     margin-bottom: -1%;
 }
+
+
+.not_a_vendor_view_container{
+    border-radius: 10px;
+    padding: 2%;
+    gap: 5%;
+    
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}

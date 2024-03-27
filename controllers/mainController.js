@@ -1,15 +1,74 @@
 const dataModel = require('../models/dataModel');
 
+const sample_user = {
+  username: "leeroy tiger",
+  email: "leeroy@trinity.edu",
+  physical_address: "1 Trinity Place", 
+  city: "San Antonio", 
+  state: "Texas",
+  zip: "78212",
+  current_orders: [1],
+  previous_orders: [1],
+  cart: [[0, 1], [1, 1, 1]],
+  is_vendor: false,
+  vendor_products: [],
+  vendor_orders: [1, 2, 3],
+}
+
+const sample_products = [
+  {
+    id: 0, 
+    name: "Happy Mix", 
+    price: 5.99, 
+    image_url: "https://www.creativefabrica.com/wp-content/uploads/2023/04/06/Cute-Hamster-kawaii-clipart-Graphics-66428546-1.jpg", 
+    vendor_name: "Maria", 
+    vendor_location: "London, UK", 
+    amount: "2 pounds", 
+    ingredients: ["carrots", "potatoes", "wheat"], 
+    description: "A lovely happy mix for your hamster!"
+  }, 
+
+  {
+    id: 1, 
+    name: "Rainy Day Mix", 
+    price: 15.99, 
+    image_url: "https://www.creativefabrica.com/wp-content/uploads/2023/04/06/Cute-Hamster-kawaii-clipart-Graphics-66428546-1.jpg", 
+    vendor_name: "Mr. Rain's Concoctions", 
+    vendor_location: "Washington, USA", 
+    amount: "5 kilograms", 
+    ingredients: ["water", "eggs", "celery", "caffeine"], 
+    description: "Is is a very rainy day? Let your hamster indulge in my rainy day mix for a wonderful, productive afternoon!"
+  },   
+  {
+    id: 2, 
+    name: "Prada Mix", 
+    price: 150.99, 
+    image_url: "https://www.creativefabrica.com/wp-content/uploads/2023/04/06/Cute-Hamster-kawaii-clipart-Graphics-66428546-1.jpg", 
+    vendor_name: "Prada Inc.", 
+    vendor_location: "Paris, France", 
+    amount: "2 kilograms", 
+    ingredients: ["Red 40", "Prada Homme", "Lorem ipsum dolor sit amet", "Consectetur adipiscing elit", "Curabitur dapibus", "orci ornare felis sodales"], 
+    description: "Morbi et maximus nisl, a euismod augue. Integer hendrerit nisl tempor leo interdum, non maximus mauris accumsan. Proin neque neque, imperdiet eget eros at, feugiat suscipit lectus. Mauris eleifend libero in velit interdum, sit amet semper elit luctus. Ut a elit nibh. Maecenas bibendum aliquam ligula vel ultricies. Ut blandit ex nisl, at sagittis neque viverra sed. In in arcu mollis, viverra sem id, molestie eros. Donec mauris metus, maximus sollicitudin lorem eu, rutrum venenatis mauris. Maecenas vel tincidunt neque, et imperdiet urna. Aenean at dolor quis quam euismod sodales.    "
+  }
+
+]
+
+const sample_cart = {
+  products: [0, 1, 2], // ids
+  quantities: [1, 2, 3] // by index
+}
+
 const mainController = {
   getOnboarding: (req, res) => {
     res.render('onboarding');
   },
 
-
   getProfile: (req, res) => {
     const d = 'secondusertest'
-    const profile = dataModel.getProfile(d);
+    // const profile = dataModel.getProfile(d);
     
+    const profile = sample_user;
+
     // checks to see if a user is logged in, redirects to onboarding if not
     // if(profile == ""){
       res.render('user/user_profile', { profile });
@@ -27,8 +86,13 @@ const mainController = {
 
 
   getUserProductView: (req, res) => {
-    const product_id = req.body.product_id;
-    const product = dataModel.getProduct(product_id);
+    // const product_id = req.body.product_id;
+    // const product = dataModel.getProduct(product_id);
+
+    const product = sample_products[2];
+
+    console.log(product);
+
     res.render('user/user_product_view', { product });
   },
 
@@ -47,17 +111,32 @@ const mainController = {
   },
 
 
+  getNotAVendorView: (req, res) => {
+    res.render('vendor/not_a_vendor_view')
+  },
+
+
   getVendorDashboard: (req, res) => {
-    const profile = dataModel.getProfile();
+    // const profile = dataModel.getProfile();
     const orders = dataModel.getOrders();
 
+    const profile = sample_user;
+
     // lil logic check to make sure you're a vendor
-    // if(profile.isVendor){
+    if(profile.is_vendor){
       res.render('vendor/vendor_dashboard', { profile, orders });
-    // }
-    // else{
-    //   res.render('vendor/not_vendor', { profile, orders });
-    // }
+    }
+    else{
+      res.render('vendor/not_a_vendor_view', { profile, orders });
+    }
+  },
+
+  getVendorListings: (req, res) => {
+    // const profile = dataModel.getProfile();
+
+    const profile = sample_user;
+    
+    res.render('vendor/vendor_listings', { profile });
   },
 
   

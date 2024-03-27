@@ -14,7 +14,7 @@
         <%- include ('../partials/navigation_bar.ejs') %>
 
         <!-- Title -->
-        <h2 style="margin-left: 2%; margin-bottom: -5px;">Happy Mix</h2>
+        <h2 style="margin-left: 2%; margin-bottom: 1%;"><%=product.name %></h2>
 
         <!-- Main Container -->
         <div class="user_product_view">
@@ -23,29 +23,29 @@
             <div class="user_product_info">
                 <div class="information_row">
                     <p>Vendor</p>
-                    <p class="product_information_detail_text">vendor name </p>
+                    <p class="product_information_detail_text"><%=product.vendor_name %> </p>
                 </div>
                 <div class="information_row">
                     <p>Vendor Location</p>
-                    <p class="product_information_detail_text">vendor location</p>
+                    <p class="product_information_detail_text"><%=product.vendor_location %></p>
                 </div>
                 <div class="information_row">
                     <p>Amount</p>
-                    <p class="product_information_detail_text">amount</p>
+                    <p class="product_information_detail_text"><%=product.amount %></p>
                 </div>
                 <div class="information_row">
                     <p>Ingredients</p>
-                    <p class="product_information_detail_text">ingredient 1, ingredient 2, ingredient 3</p>
+                    <p class="product_information_detail_text"><%= product.ingredients %></p>
                 </div>
                 <div class="information_row">
                     <p>Description</p>
-                    <p class="product_information_detail_text">lorem ipsum</p>
+                    <p class="product_information_detail_text"><%= product.description %></p>
                 </div>
             </div>
 
             <!-- Product Image - Right Side, Embedded in a Container-->
             <div class="product_view_image_container">
-                <img class="product_view_image" src="https://www.creativefabrica.com/wp-content/uploads/2023/04/06/Cute-Hamster-kawaii-clipart-Graphics-66428546-1.jpg" alt="Image">
+                <img class="product_view_image" src="<%= product.image_url%>" alt="Image">
             </div>
         </div>
 

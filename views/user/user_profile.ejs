@@ -28,56 +28,58 @@
                 <!-- Current Orders - shown first -->
                 <div class="user_profile_current_orders_view">
                     <h3>Current Orders</h3>
-                    <%
-                    for (let i = 0; i < 2; i++) {
-                    %>            
-                        <%- include ('../partials/user_order_subview.ejs') %>
-                    <%
-                    }
-                    %>    
+                    <%if(profile.current_orders.length == 0){%>            
+                        <h2 style="font-family: 'Poppins Light';">You do not have any open orders.</h2>
+                    <%} else { 
+                        for (let i = 0; i < profile.current_orders.length; i++) { %>
+                            <%- include ('../partials/vendor_order_subview.ejs') %>
+                    <% }}%>
                 </div>
 
                 <!-- Previous Orders - shown second -->
                 <div class="user_profile_previous_orders_view">
                     <h3>Previous Orders</h3>
-                    <%
-                    for (let i = 0; i < 4; i++) {
-                    %>            
-                        <%- include ('../partials/user_order_subview.ejs') %>
-                    <%
-                    }
-                    %>
-
+                    <%if(profile.previous_orders.length == 0){%>            
+                        <h2 style="font-family: 'Poppins Light';">You do not have any previous orders.</h2>
+                    <%} else { 
+                        for (let i = 0; i < profile.previous_orders.length; i++) { %>
+                            <%- include ('../partials/vendor_order_subview.ejs') %>
+                    <% }}%>
                 </div>
             </div>
             
 
             <!-- User Information - Right side of page -->
             <div class="user_profile_information_view">
-                <h3>My User Stats</h3>
+                <h3>My User Information</h3>
 
                 <!-- Total Orders -->
                 <div class="information_row">
                     <p>Total Orders</p>
-                    <p style="font-family: 'Poppins Light';">8 </p>
+                    <p style="font-family: 'Poppins Light';"><%= profile.current_orders.length + profile.previous_orders.length%></p>
                 </div>
 
                 <!-- User Physical Address -->
                 <div class="information_row">
                     <p>Address</p>
-                    <p style="font-family: 'Poppins Light'; font-size: small;">1 Trinity Place, San Antonio, Texas 78212</p>
+                    <div style="display: flex; flex-flow: row nowrap; gap: 3px;">
+                        <p style="font-family: 'Poppins Light'; font-size: small;"><%= profile.physical_address%>,</p>
+                        <p style="font-family: 'Poppins Light'; font-size: small;"><%= profile.city%>,</p>
+                        <p style="font-family: 'Poppins Light'; font-size: small;"><%= profile.state%>,</p>
+                        <p style="font-family: 'Poppins Light'; font-size: small;"><%= profile.zip%></p>
+                    </div>
                 </div>
 
                 <!-- User username -->
                 <div class="information_row">
                     <p>Username</p>
-                    <p style="font-family: 'Poppins Light';">leeroy-tiger1 </p>
+                    <p style="font-family: 'Poppins Light';"><%=profile.username%></p>
                 </div>
 
                 <!-- User email -->
                 <div class="information_row">
                     <p>Email</p>
-                    <p style="font-family: 'Poppins Light';">leeroy_is_the_best@trinity.edu </p>
+                    <p style="font-family: 'Poppins Light';"><%=profile.email%></p>
                 </div>
             </div>
         </div>

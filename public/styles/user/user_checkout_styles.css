@@ -16,14 +16,14 @@
 
 .user_checkout_information_subview{
     padding: 5%;
-    background-color: lightpink;
+    background-color: #ffd9d9;
     margin-bottom: 2%;
     border-radius: 10px;
 }
 
 .user_checkout_order_details_container{
     width: 35%;
-    background-color: lightblue;
+    background-color: #d3d3d3;
     padding: 2%;
     border-radius: 10px;
 }
