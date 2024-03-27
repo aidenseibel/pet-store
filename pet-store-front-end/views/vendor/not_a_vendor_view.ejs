@@ -1,0 +1,25 @@
+<!-- views/vendor/vendor_dashboard.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/styles/styles.css">
+        <link rel="stylesheet" href="/styles/vendor/vendor_styles.css">
+
+        <title>Vendor Dashboard</title>
+    </head>
+
+    <body>
+        <!-- Navigation Bar -->
+        <%- include ('../partials/navigation_bar.ejs') %>
+
+        <!-- Main Container -->
+        <div class="not_a_vendor_view_container">
+            <img class="logo_large" src="https://www.creativefabrica.com/wp-content/uploads/2023/04/06/Cute-Hamster-kawaii-clipart-Graphics-66428546-1.jpg" alt="logo">
+            <h1>Whoops!</h1>
+            <h2>Your account is not set up to be a Vendor.</h2>
+            <a href="/listings"><h3>Take me back home</h3></a>
+        </div>
+    </body>
+</html>

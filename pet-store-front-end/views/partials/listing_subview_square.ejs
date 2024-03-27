@@ -1,0 +1,32 @@
+<!-- views/partials/listing_subview_square.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/styles/styles.css">
+        <link rel="stylesheet" href="/styles/partials/listing_subview_square_styles.css">
+
+    </head>
+    <body>
+        <!-- Main Container -->
+        <div class="listing_subview_square_view">
+            <!-- Image (embedded in a container) - Top of Subview -->
+            <div class="listing_subview_square_image_container">
+                <img class="listing_subview_square_image" src="<%= listing.image_url%>" alt="Image">
+            </div>
+
+            <!-- Listing Info - Below Image -->
+            <div class="listing_subview_square_info">
+                <h3><%= listing.name%></h3>
+                <h3 style="font-family: 'Poppins Light';">$<%= listing.price%> </h3>
+            </div>
+
+            <!-- Listing SubInfo - Below main info -->
+            <div class="listing_subview_square_subinfo">
+                <p class="single_line_text" style="font-family: Poppins Light; margin-right: 10px; font-size: small;">By <%= listing.vendor_name%>,</p>
+                <p class="single_line_text"     style="font-family: Poppins Light; font-size: small;"> <%= listing.vendor_location%></p>
+            </div>
+        </div>
+    </body>
+</html>

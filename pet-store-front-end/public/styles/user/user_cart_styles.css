@@ -1,0 +1,29 @@
+.shopping_cart_view{
+    border-radius: 10px;
+    padding: 2%;
+    margin-top: -2%;
+    gap: 5%;
+    
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.shopping_cart_listings{
+    background-color: #ffffff;
+    gap: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+}
+
+.shopping_cart_summary{
+    width: 30%;
+    padding: 2%;
+    border-radius: 10px;
+    flex-grow: 1;
+    background-color: #f3f3f3;
+}

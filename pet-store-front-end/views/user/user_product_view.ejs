@@ -1,0 +1,60 @@
+<!-- views/user/user_product_view.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/styles/styles.css">
+        <link rel="stylesheet" href="/styles/user/user_product_view_styles.css">
+        <title>User Product View</title>
+    </head>
+
+    <body>
+         <!-- Navigation Bar -->
+        <%- include ('../partials/navigation_bar.ejs') %>
+
+        <!-- Title -->
+        <h2 style="margin-left: 2%; margin-bottom: 1%;"><%=product.name %></h2>
+
+        <!-- Main Container -->
+        <div class="user_product_view">
+
+            <!-- Product information - Left Side-->
+            <div class="user_product_info">
+                <div class="information_row">
+                    <p>Vendor</p>
+                    <p class="product_information_detail_text"><%=product.vendor_name %> </p>
+                </div>
+                <div class="information_row">
+                    <p>Vendor Location</p>
+                    <p class="product_information_detail_text"><%=product.vendor_location %></p>
+                </div>
+                <div class="information_row">
+                    <p>Amount</p>
+                    <p class="product_information_detail_text"><%=product.amount %></p>
+                </div>
+                <div class="information_row">
+                    <p>Ingredients</p>
+                    <p class="product_information_detail_text"><%= product.ingredients %></p>
+                </div>
+                <div class="information_row">
+                    <p>Description</p>
+                    <p class="product_information_detail_text"><%= product.description %></p>
+                </div>
+            </div>
+
+            <!-- Product Image - Right Side, Embedded in a Container-->
+            <div class="product_view_image_container">
+                <img class="product_view_image" src="<%= product.image_url%>" alt="Image">
+            </div>
+        </div>
+
+
+        <!-- Add to Cart Button - Bottom of Page, includes quantity -->
+        <div class="add_to_cart">
+            <h1 style="margin-left: 2%; flex-grow: 1;">$15.99</h1>
+            <input class="quantity_form_input" type="text" placeholder="1">
+            <h2><a class="nav_bar_buttons" href="/user_cart">Add to Cart</a></h2>
+        </div>
+    </body>
+</html>
