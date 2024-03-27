@@ -15,20 +15,22 @@
         <%- include ('../partials/vendor_navigation_bar.ejs') %>
 
         <!-- Content -->
-        <h2 style="margin-left: 2%;">My Listings</h2>
+        <h2 style="margin-left: 2%;"><%=profile.username %>'s Listings (<%=vendor_listings.length %>)</h2>
 
         <!-- Main Container -->
         <div class="all_listings">
 
             <!-- All listings -->
-            <%if(profile.vendor_products.length == 0){%>            
+            <%if(vendor_listings.length == 0){%>            
                 <h3 style="font-family: 'Poppins Light';">You do not have any listings!</h3>
             <%} else { 
-                for (let i = 0; i < profile.vendor_products.length; i++) { %>
-                    <a href="/vendor_product_view" style="text-decoration: none; color: inherit;">
-                        <%- include ('../partials/listing_subview_square.ejs') %>
+                vendor_listings.forEach(listing => { %>
+                    <a href="/user_product_view" style="width: 25%; text-decoration: none; color: inherit;">
+                        <%- include ('../partials/listing_subview_square.ejs', { listing }) %>
                     </a>
-            <% }}%>
+            <%
+            });}
+            %>
         </div>
     </body>
 </html>

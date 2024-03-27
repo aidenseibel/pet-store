@@ -21,15 +21,18 @@
             
             <!-- Shopping Cart Listings - Left Side of Page -->
             <div class="shopping_cart_listings">
-                <%
-                for (let i = 0; i < 4; i++) {
-                %>
-                    <a href="/user_product_view" style="text-decoration: none; color: inherit;">
-                        <%- include ('../partials/listing_subview_list.ejs') %>
-                    </a>
-                <%
-                }
-                %>
+                
+                <!-- If cart is empty, show message -->
+                <%if(cart.length == 0){%>            
+                    <h3 style="font-family: 'Poppins Light';">Your cart is empty!</h3>
+                
+                <!-- Cart contents -->
+                    <%} else { 
+                    cart.forEach(listing => { %>
+                        <a href="/user_product_view" style="text-decoration: none; color: inherit; width: 90%;">
+                            <%- include ('../partials/listing_subview_list.ejs', { listing }) %>
+                        </a>
+                <%});}%>
             </div>
             
             <!-- Cart Summary and Checkout Button - Right Side of Page-->
@@ -39,7 +42,7 @@
                 <!-- Product Count -->
                 <div class="information_row">
                     <p>Products</p>
-                    <p>8 </p>
+                    <p><%=cart.length%></p>
                 </div>
 
                 <!-- Order Subtotal -->

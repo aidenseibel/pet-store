@@ -12,20 +12,18 @@
         <%- include ('./partials/navigation_bar.ejs') %>
 
         <!-- Title -->
-        <h2 style="margin-left: 2%;">Browse All Listings (12)</h2>
+        <h2 style="margin-left: 2%;">Browse All Listings (<%=all_listings.length %>)</h2>
         
         <!-- Main Container -->
         <div class="all_listings">
 
             <!-- All listings -->
-            <%
-            for (let i = 0; i < 9; i++) {
-            %>            
+            <% all_listings.forEach(listing => { %>
                 <a href="/user_product_view" style="width: 25%; text-decoration: none; color: inherit;">
-                    <%- include ('./partials/listing_subview_square.ejs') %>
+                    <%- include ('./partials/listing_subview_square.ejs', { listing }) %>
                 </a>
             <%
-            }
+            });
             %>
         </div>
     </body>

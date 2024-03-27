@@ -17,6 +17,7 @@
     flex-flow: column nowrap;
     justify-content: space-between;
     align-items: center;
+    width: 70%;
 }
 
 .shopping_cart_summary{

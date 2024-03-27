@@ -9,9 +9,9 @@ const sample_user = {
   zip: "78212",
   current_orders: [1],
   previous_orders: [1],
-  cart: [[0, 1], [1, 1, 1]],
-  is_vendor: false,
-  vendor_products: [],
+  cart: [[0, 1], [1, 1]],
+  is_vendor: true,
+  vendor_products: [2],
   vendor_orders: [1, 2, 3],
 }
 
@@ -32,7 +32,7 @@ const sample_products = [
     id: 1, 
     name: "Rainy Day Mix", 
     price: 15.99, 
-    image_url: "https://www.creativefabrica.com/wp-content/uploads/2023/04/06/Cute-Hamster-kawaii-clipart-Graphics-66428546-1.jpg", 
+    image_url: "https://i.pinimg.com/474x/35/96/e0/3596e03b599bb2ade609ce0318bf4620.jpg", 
     vendor_name: "Mr. Rain's Concoctions", 
     vendor_location: "Washington, USA", 
     amount: "5 kilograms", 
@@ -43,7 +43,7 @@ const sample_products = [
     id: 2, 
     name: "Prada Mix", 
     price: 150.99, 
-    image_url: "https://www.creativefabrica.com/wp-content/uploads/2023/04/06/Cute-Hamster-kawaii-clipart-Graphics-66428546-1.jpg", 
+    image_url: "https://as1.ftcdn.net/v2/jpg/04/65/04/54/1000_F_465045445_tAqxYnT9cttrJTOz4ZZcbeKuyUUVmkvs.jpg", 
     vendor_name: "Prada Inc.", 
     vendor_location: "Paris, France", 
     amount: "2 kilograms", 
@@ -79,7 +79,8 @@ const mainController = {
 
 
   getListings: (req, res) => {
-    const all_listings = dataModel.getAllListings();
+    // const all_listings = dataModel.getAllListings();
+    const all_listings = sample_products;
     const profile = dataModel.getProfile();
     res.render('listings', { all_listings, profile });
   },
@@ -98,8 +99,9 @@ const mainController = {
 
 
   getUserCart: (req, res) => {
-    const profile = dataModel.getProfile();
-    const cart = dataModel.getCart(profile);
+    // const profile = dataModel.getProfile();
+    // const cart = dataModel.getCart(profile);
+    const cart = sample_products;
     res.render('user/user_cart', { cart });
   },
 
@@ -135,8 +137,9 @@ const mainController = {
     // const profile = dataModel.getProfile();
 
     const profile = sample_user;
+    const vendor_listings = sample_products;
     
-    res.render('vendor/vendor_listings', { profile });
+    res.render('vendor/vendor_listings', { profile, vendor_listings });
   },
 
   
