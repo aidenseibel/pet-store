@@ -21,25 +21,24 @@
             
             <!-- Create Account - Left Side -->
             <div class="login_signup_container">
-                <h3>Create your account to get started.</h3>
-
-                <!-- Email -->
-                <form>
-                    <input type="text" class="onboarding_input_public" placeholder="Email">
+                <h3 style="padding: 20px;">Create your account to get started.</h3>
+                <form method = "POST" style="padding: 20px;">
+		  <div>
+                    <input name="newEmail" "id=newEmail" type="text" placeholder="Email">
+		  </div>
+		  <div>
+                    <input name="newUsername" "id=newUsername" type="text" placeholder="Username">
+		  </div>
+		  <div>
+                    <input name="newPassword" "id=newPassword" type="text" placeholder="Password">
+		  </div>
+		  <div>
+                    <input type="text" placeholder="Confirm Password">
+		  </div>
+		  <div>
+		    <button>Create Account</button>
+		  </div>
                 </form>
-
-                <!-- Password -->
-                <form>
-                    <input type="text" class="onboarding_input_private" placeholder="Password">
-                </form>
-
-                <!-- Confirm Password -->
-                <form>
-                    <input type="text" class="onboarding_input_private" placeholder="Confirm Password">
-                </form>
-
-                <!-- Create Account Button -->
-                <button class="submit_onboard_button">Create Account</button>
             </div>
 
             <!-- Log in - Right Side --> 

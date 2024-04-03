@@ -1,4 +1,6 @@
 const dataModel = require('../models/dataModel');
+const Listing = require('../utils/class_listing');
+const User = require('../utils/class_user');
 
 const sample_user = {
   username: "leeroy tiger",
@@ -50,81 +52,76 @@ const sample_products = [
     ingredients: ["Red 40", "Prada Homme", "Lorem ipsum dolor sit amet", "Consectetur adipiscing elit", "Curabitur dapibus", "orci ornare felis sodales"], 
     description: "Morbi et maximus nisl, a euismod augue. Integer hendrerit nisl tempor leo interdum, non maximus mauris accumsan. Proin neque neque, imperdiet eget eros at, feugiat suscipit lectus. Mauris eleifend libero in velit interdum, sit amet semper elit luctus. Ut a elit nibh. Maecenas bibendum aliquam ligula vel ultricies. Ut blandit ex nisl, at sagittis neque viverra sed. In in arcu mollis, viverra sem id, molestie eros. Donec mauris metus, maximus sollicitudin lorem eu, rutrum venenatis mauris. Maecenas vel tincidunt neque, et imperdiet urna. Aenean at dolor quis quam euismod sodales.    "
   }
+
 ]
 
-const sample_cart = [
-  {id: 0, quantity: 2},
-  {id: 1, quantity: 2},
-  {id: 2, quantity: 3}
-]
+const sample_cart = {
+  products: [0, 1, 2], // ids
+  quantities: [1, 2, 3] // by index
+}
 
 const mainController = {
   getOnboarding: (req, res) => {
     res.render('onboarding');
   },
-
-
   getProfile: (req, res) => {
     const d = 'secondusertest'
     const profile = dataModel.getProfile(d);
-    res.render('profile', { profile });
+    res.render('user/user_profile', { profile});
   },
-
-
   getListings: (req, res) => {
     var all_listings = [];
 
     dataModel.getAllListings(function(all_listings) {
-      console.log("all_listings:");
-      console.log(all_listings);
+
+   	 res.render('listings', { all_listings, profile });
+
     });
-
     const profile = dataModel.getProfile();
-    res.render('listings', { all_listings, profile });
   },
-
-
   getUserProductView: (req, res) => {
     const product_id = req.body.product_id;
     const product = dataModel.getProduct(product_id);
     res.render('user/user_product_view', { product });
   },
-
-
   getUserCart: (req, res) => {
     const cart = dataModel.getCart();
     res.render('user/user_cart', { cart });
   },
-
-
   getUserCheckout: (req, res) => {
     const cart = dataModel.getCart();
     res.render('user/user_checkout', { cart });
   },
-
-
   getVendorDashboard: (req, res) => {
     const profile = dataModel.getProfile();
     const orders = dataModel.getOrders();
     res.render('vendor/vendor_dashboard', { profile, orders });
   },
-
-
   getVendorProductView: (req, res) => {
     const product_id = req.body.product_id;
     const product = dataModel.getProduct(product_id);
     res.render('vendor/vendor_product_view', { product });
   },
-
-
+  getNotAVendorView: (req, res) => {
+    const product_id = req.body.product_id;
+    const product = dataModel.getProduct(product_id);
+    res.render('vendor/vendor_product_view', { product });
+  },
+  getVendorListings: (req, res) => {
+    const product_id = req.body.product_id;
+    const product = dataModel.getProduct(product_id);
+    res.render('vendor/vendor_product_view', { product });
+  },
   postOnboarding:(req,res) => {
     //handling the POST request made by the form on onboarding.js
+    console.log("postONboarding");
     var newEmail = req.body.newEmail
     var newUser = req.body.newUsername
     var newPassword = req.body.newPassword
-    dataModel.insertProfile(newEmail,newUser,newPassword);
+    dataModel.insertProfile(newEmail,newUser,newPassword, function(){
+      res.render('onboarding_accountcreated', { newUser });
+    });
   },
 };
-
 
 module.exports = mainController;

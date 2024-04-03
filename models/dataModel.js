@@ -1,6 +1,8 @@
 const express = require("express");
 const mysql = require("mysql");
 const mysqlConnection = require("../utils/database");
+const Listing = require("../utils/class_listing")
+const User = require("../utils/class_user")
 
 const dataModel = {
     getAllListings: (callback) => {
@@ -8,83 +10,93 @@ const dataModel = {
 	  	console.log("getting listings")
         var sql = mysql.format("SELECT * FROM listings");
 	  	mysqlConnection.query(sql, (err, results, fields) => {
-			if (err) {
-				throw err
-			} else {
-				console.log("got listing results: ");
-				console.log(results);
+      	  		if (err) {
+          	 		throw err
+          		} else {
+		 		console.log("got listing results: ");
+          	 		console.log(results);
 
-				for(let i = 0; i < results.length; i++){
-					const l = new Array(
-							results[i].idlistings,
-							results[i].ownerusername,
-							results[i].listingname,
-							results[i].listingprice,
-							results[i].listingimageurl
-						);
-					listings.push(l);
-				}
-				console.log("converted results to array");
-				console.log(listings)
+				for(let i = 0; i< results.length; i++){
+				const r = results[i];
+				var l = new Listing(
+							r.id,
+							r.name,
+							r.price,
+							r.vendor_id,
+							r.image_url,
+							r.amount,
+							r.ingredients,
+							r.description
+							);
+
+			  	listings.push(l);
+		 		}
+		 		console.log("converted results to object");
+		 		console.log(listings)
 				callback(listings);
-			}
-		});
-		//console.log("listings to return: ");
-		//console.log(listings);
-		//return listings;
+          		}
+		}
+	  );
     },
-
-
     getProfile: (data,callback) => {
-		console.log("running getProfile");
-		console.log("data is: " + data);
-		console.log("using local const d instead of data")
-		const d = 'hamster'
-		var profile;
-		
-		var sql = mysql.format("SELECT * FROM userprofile WHERE username =?",[d]);
 
-		mysqlConnection.query(sql, (err, results, fields) => {
+	  console.log("running getProfile");
+	  console.log("data is: " + data);
+	  console.log("using local const d instead of data")
+	  const d = 'hamster'
+	  var profile;
+	  var sql = mysql.format("SELECT * FROM user WHERE username =?",[d]);
+
+	  mysqlConnection.query(sql, (err, results, fields) => {
       	  	if (err) {
-          	 	throw err
+          	 throw err
           	} else {
-          	 	console.log("results[0]: " + results[0].username);
-	  	 		profile = results;
+          	 console.log("results[0]: " + results[0].username);
+		 const r = results[0];
+		 profile = new User(
+				r.id,
+				r.username,
+				r.email,
+				r.password,
+				r.physical_address,
+				r.city,
+				r.state,
+				r.zip,
+				r.is_vendor,
+				);
+	  	 //profile = results;
           	}
-		});
-      	return profile;
-    },
-	
+	});
 
+      return profile;
+    },
     getProduct: (product_id) => {
-      	return 'product id = ' + product_id ;
+      return 'product id = ' + product_id ;
     },
-
-
     getCart: () => {
-      	return 'cart';
+      return 'cart';
     },
-
-
     getOrders: () => {
-      	return 'orders';
+      return 'orders';
     },
-
-
     insertProfile: (e,u,p,callback) => {
-		console.log("running createProfile");
-		
-		var sql = mysql.format("INSERT INTO userprofile(email,username, password) VALUES (?,?,?)",[e,u,p]);
+	 console.log("running createProfile");
+	 var c = "Failed";
+	 
+	 var sql = mysql.format("INSERT INTO user(email,username, password) VALUES (?,?,?)",[e,u,p]);
 
-	   	mysqlConnection.query(sql, (err, results, fields) => {
+	   mysqlConnection.query(sql, (err, results, fields) => {
       	  	if (err) {
-          	 	throw err
+          	 throw err
           	} else {
-          	 	console.log("made insert query in datamodel.js without errors");
+          	 console.log("made insert query in datamodel.js without errors");
+			 c = "Success";
           	}
-	   	});
-      	return true;
+	   });
+
+      callback(c);
     },
-};
+  };
   
 module.exports = dataModel;
+//module.exports = Router;
