@@ -35,28 +35,32 @@
 		  <div>
                     <input type="text" placeholder="Confirm Password">
 		  </div>
+		   <div>
+		    <input type="hidden" name="action" value="createaccount" />
+		  </div>
 		  <div>
 		    <button>Create Account</button>
 		  </div>
                 </form>
             </div>
 
-            <!-- Log in - Right Side --> 
+            <!-- Log in - Right Side -->
             <div class="login_signup_container">
-                <h3>Already have an account? Sign in.</h3>
-
-                <!-- Email -->
-                <form>
-                    <input type="text" class="onboarding_input_public" placeholder="Email">
+                <h3 style="padding: 20px;">Already have an account? Sign in.</h3>
+                <form method = "POST" style="padding: 20px;">
+		  <div>
+                    <input name="queryUsername" "id=queryUsername" type="text" placeholder="Username">
+		  </div>
+		  <div>
+                    <input name="queryPassword" "id=queryPassword" type="text" placeholder="Password">
+		  </div>
+		  <div>
+		    <input type="hidden" name="action" value="login">
+		  </div>
+		  <div>
+		    <button>Sign In</button>
+		  </div>
                 </form>
-
-                <!-- Password -->
-                <form>
-                    <input type="text" class="onboarding_input_private" placeholder="Password">
-                </form>
-
-                <!-- Log in Button -->
-                <button class="submit_onboard_button">Log in</button>
             </div>
         </div>
     </body>
