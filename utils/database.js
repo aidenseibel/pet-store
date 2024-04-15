@@ -3,7 +3,7 @@ const mysql = require("mysql");
 const mysqlConnection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "h@m$t3r$t0r3",
+  password: "Strawberrymysql.0824",
   database: "hamsterstore_test",
   multipleStatements: true,
 });
@@ -17,3 +17,18 @@ mysqlConnection.connect((err) => {
 });
 
 module.exports = mysqlConnection;
+
+///
+// database.js
+
+// const mysql = require('mysql');
+
+// // Create connection pool
+// const pool = mysql.createPool({
+//   host: 'your_database_host',
+//   user: 'your_database_user',
+//   password: 'your_database_password',
+//   database: 'your_database_name'
+// });
+
+// module.exports = pool;
