@@ -3,7 +3,7 @@ const mysql = require("mysql");
 const mysqlConnection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "Strawberrymysql.0824",
+  password: "h@m$t3r$t0r3",
   database: "hamsterstore_test",
   multipleStatements: true,
 });

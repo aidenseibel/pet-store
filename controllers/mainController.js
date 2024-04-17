@@ -85,8 +85,10 @@ const mainController = {
     res.render('user/user_product_view', { product });
   },
   getUserCart: (req, res) => {
-    const cart = dataModel.getCart();
-    res.render('user/user_cart', { cart });
+    var cart = [];
+    dataModel.getCart('test', function(cart){
+      res.render('user/user_cart', { cart });
+    });
   },
   getUserCheckout: (req, res) => {
     const cart = dataModel.getCart();
@@ -122,40 +124,48 @@ const mainController = {
       res.render('onboarding_accountcreated', { newUser });
     });
   },
+  postCart: (req, res) => {
+    console.log("postCart");
+    var userID = req.body.userID;
+    var itemID = req.body.itemId;
+    var quantity = req.body.quantity;
+    dataModel.addToCart(userID, itemID, quantity, function (err,result) {
+      res.render('onboarding_accountcreated', { result });
+    });
+  },
 };
 
 module.exports = mainController;
 
 
 //
-// mainController.js
+// // mainController.js
 
-const express = require('express');
-const router = express.Router();
-const dataModel = require('./dataModel');
+// const express = require('express');
+// const router = express.Router();
 
-// Add to cart route
-router.post('/add-to-cart', (req, res) => {
-  const { userId, itemId, quantity } = req.body;
-  dataModel.addToCart(userId, itemId, quantity, (err, result) => {
-    if (err) {
-      res.status(500).send('Error adding item to cart');
-    } else {
-      res.sendStatus(200);
-    }
-  });
-});
+// // Add to cart route
+// router.post('/add-to-cart', (req, res) => {
+//   const { userId, itemId, quantity } = req.body;
+//   dataModel.addToCart(userId, itemId, quantity, (err, result) => {
+//     if (err) {
+//       res.status(500).send('Error adding item to cart');
+//     } else {
+//       res.sendStatus(200);
+//     }
+//   });
+// });
 
-// Retrieve cart items route
-router.get('/cart-items/:userId', (req, res) => {
-  const userId = req.params.userId;
-  dataModel.getCartItems(userId, (err, result) => {
-    if (err) {
-      res.status(500).send('Error retrieving cart items');
-    } else {
-      res.json(result);
-    }
-  });
-});
+// // Retrieve cart items route
+// router.get('/cart-items/:userId', (req, res) => {
+//   const userId = req.params.userId;
+//   dataModel.getCartItems(userId, (err, result) => {
+//     if (err) {
+//       res.status(500).send('Error retrieving cart items');
+//     } else {
+//       res.json(result);
+//     }
+//   });
+// });
 
-module.exports = router;
+// module.exports = router;

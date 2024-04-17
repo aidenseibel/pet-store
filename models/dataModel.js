@@ -73,7 +73,19 @@ const dataModel = {
 	getProduct: (product_id) => {
 		return 'product id = ' + product_id;
 	},
-	getCart: () => {
+	getCart: (userId, callback) => {
+
+		const sql = mysql.format("SELECT * FROM cart WHERE user = ?", [userId]);
+		mysqlConnection.query(sql, (err, results) => {
+			if (err) {
+				throw err
+			} else {
+				console.log("results of cart:");
+				console.log(results);
+				callback(results);
+			}
+		});
+
 		return 'cart';
 	},
 	getOrders: () => {
@@ -96,6 +108,23 @@ const dataModel = {
 
 		callback(c);
 	},
+	insertCart: (u, l, q, callback) => {
+		console.log("putting item in cart");
+		var c = "Failed";
+
+		var sql = mysql.format("INSERT INTO cart(user,listing, quantity) VALUES (?,?,?)", [u, l, q]);
+
+		mysqlConnection.query(sql, (err, results, fields) => {
+			if (err) {
+				throw err
+			} else {
+				console.log("made insert query to cart without errors");
+				c = "Success";
+			}
+		});
+
+		callback(c);
+	},
 };
 
 module.exports = dataModel;
@@ -108,26 +137,26 @@ module.exports = dataModel;
 
 //const mysqlConnection = require('./database');
 
-function addToCart(userId, itemId, quantity, callback) {
-	const sql = 'INSERT INTO cart_items (user_id, item_id, quantity) VALUES (?, ?, ?)';
-	mysqlConnection.query(sql, [userId, itemId, quantity], (err, result) => {
-		if (err) {
-			callback(err, null);
-		} else {
-			callback(null, result);
-		}
-	});
-}
+// function addToCart(userId, itemId, quantity, callback) {
+// 	const sql = 'INSERT INTO cart_items (user_id, item_id, quantity) VALUES (?, ?, ?)';
+// 	mysqlConnection.query(sql, [userId, itemId, quantity], (err, result) => {
+// 		if (err) {
+// 			callback(err, null);
+// 		} else {
+// 			callback(null, result);
+// 		}
+// 	});
+// }
 
-function getCartItems(userId, callback) {
-	const sql = 'SELECT * FROM cart_items WHERE user_id = ?';
-	mysqlConnection.query(sql, [userId], (err, result) => {
-		if (err) {
-			callback(err, null);
-		} else {
-			callback(null, result);
-		}
-	});
-}
+// function getCartItems(userId, callback) {
+// 	const sql = 'SELECT * FROM cart_items WHERE user_id = ?';
+// 	mysqlConnection.query(sql, [userId], (err, result) => {
+// 		if (err) {
+// 			callback(err, null);
+// 		} else {
+// 			callback(null, result);
+// 		}
+// 	});
+// }
 
-module.exports = { addToCart, getCartItems };
+//module.exports = { addToCart, getCartItems };
