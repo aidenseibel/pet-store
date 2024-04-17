@@ -37,6 +37,7 @@ app.get('/vendor_listings', mainController.getVendorListings);
 
 // Post Routes
 app.post('/onboarding', mainController.postOnboarding);
+app.post('/add-to-cart', mainController.postCart);
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
