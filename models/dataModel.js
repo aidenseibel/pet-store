@@ -159,7 +159,6 @@ const dataModel = {
     	});
       callback(c);
      }
-  };
 };
 
 module.exports = dataModel;
