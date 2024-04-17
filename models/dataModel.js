@@ -125,6 +125,41 @@ const dataModel = {
 
 		callback(c);
 	},
+  matchProfile: (u,p,callback) =>{
+	var c = "Failed";
+	var profile;
+	var sql = mysql.format("SELECT * FROM user WHERE username =? AND password = ?",[u,p]);
+	mysqlConnection.query(sql, (err, results, fields) => {
+      	  	if (err) {
+          	} else {
+		    if(results.length > 0){
+			var c = "Success";
+			console.log("Given: ");
+			console.log(u);
+			console.log(p);
+			console.log("Found match: ");
+			const r = results[0];
+			console.log(results[0].username);
+		 	profile = new User(
+				r.id,
+				r.username,
+				r.email,
+				r.password,
+				r.physical_address,
+				r.city,
+				r.state,
+				r.zip,
+				r.is_vendor,
+				);
+		    } else {
+			var c = "Failed";
+			console.log("Did not find match");
+		    }
+          	}
+    	});
+      callback(c);
+     }
+  };
 };
 
 module.exports = dataModel;

@@ -14,11 +14,12 @@
 //}
 
 class Listing{
-	constructor(c_id,c_name,c_price,c_vendor_id,c_image_url,c_amount,c_ingredients,c_description){
+	constructor(c_id,c_name,c_price,c_vendor_id,c_vendor_username,c_image_url,c_amount,c_ingredients,c_description){
 		this.id = c_id;
 		this.name = c_name;
 		this.price = c_price;
 		this.vendor_id = c_vendor_id;
+		this.vendor_username = c_vendor_username;
 		this.image_url = c_image_url;
 		this.amount = c_amount;
 		this.ingredients = c_ingredients;

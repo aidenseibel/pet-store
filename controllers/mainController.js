@@ -71,11 +71,8 @@ const mainController = {
   },
   getListings: (req, res) => {
     var all_listings = [];
-
-    dataModel.getAllListings(function (all_listings) {
-
-      res.render('listings', { all_listings, profile });
-
+    dataModel.getAllListings(function(all_listings) {
+   	 res.render('listings', { all_listings, profile });
     });
     const profile = dataModel.getProfile();
   },
@@ -116,13 +113,31 @@ const mainController = {
   },
   postOnboarding: (req, res) => {
     //handling the POST request made by the form on onboarding.js
-    console.log("postONboarding");
-    var newEmail = req.body.newEmail
-    var newUser = req.body.newUsername
-    var newPassword = req.body.newPassword
-    dataModel.insertProfile(newEmail, newUser, newPassword, function () {
-      res.render('onboarding_accountcreated', { newUser });
-    });
+    action = req.body.action;
+    console.log(action);
+	if(action == "createaccount"){
+    		var newEmail = req.body.newEmail;
+    		var newUser = req.body.newUsername;
+    		var newPassword = req.body.newPassword;
+    		dataModel.insertProfile(newEmail,newUser,newPassword, function(){
+      			res.render('onboarding_accountcreated', { newUser });
+    		});
+	}
+	if(action == "login"){
+		var loginUser = new User;
+		var queryUsername = req.body.queryUsername;
+		var queryPassword = req.body.queryPassword;
+		dataModel.matchProfile(queryUsername,queryPassword,function(status){
+			console.log(status);
+			if(status == "Success"){
+      				res.render('onboarding_loggedin', { });
+			}
+			if(status != "Success"){
+			    res.render('onboarding',{});
+			}
+    		});
+		
+	}
   },
   postCart: (req, res) => {
     console.log("postCart");
