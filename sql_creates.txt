@@ -1,0 +1,61 @@
+CREATE TABLE `listings` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `price` float unsigned NOT NULL,
+  `vendor_id` int unsigned NOT NULL,
+  `vendor_username` varchar(45) NOT NULL,
+  `image_url` varchar(45) DEFAULT NULL,
+  `amount` int unsigned NOT NULL,
+  `ingredients` varchar(150) DEFAULT NULL,
+  `description` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idlistings_UNIQUE` (`id`),
+  UNIQUE KEY `owneremail_UNIQUE` (`name`),
+  KEY `vendor_username_idx` (`vendor_username`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+
+
+CREATE TABLE `user` (
+  `iduserprofile` int unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `physical_address` varchar(45) DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `state` varchar(45) DEFAULT NULL,
+  `zip` varchar(45) DEFAULT NULL,
+  `is_vendor` tinyint unsigned DEFAULT NULL,
+  PRIMARY KEY (`iduserprofile`),
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  UNIQUE KEY `iduserprofile_UNIQUE` (`iduserprofile`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='usernames, emails, passwords, addresses, etc';
+
+
+
+CREATE TABLE `orders` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int DEFAULT NULL,
+  `seller_id` int DEFAULT NULL,
+  `vendor_id` int DEFAULT NULL,
+  `products` int DEFAULT NULL,
+  `quantities` int DEFAULT NULL,
+  `date_of_order` datetime DEFAULT NULL,
+  `date_of_delivery` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `cart` (
+  `user` varchar(45) NOT NULL,
+  `listing` int NOT NULL,
+  `quantity` int NOT NULL,
+  PRIMARY KEY (`user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+

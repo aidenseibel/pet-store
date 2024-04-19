@@ -1,0 +1,6 @@
+iduserprofile,username,email,password,physical_address,city,state,zip,is_vendor
+9,hamster,hamster@store.com,store,NULL,NULL,NULL,NULL,NULL
+10,test2,test1,test3,NULL,NULL,NULL,NULL,NULL
+11,test5,test5,test5,NULL,NULL,NULL,NULL,NULL
+12,test6,test6,test6,NULL,NULL,NULL,NULL,NULL
+14,test7,test7,test7,NULL,NULL,NULL,NULL,NULL
