@@ -54,10 +54,14 @@
         <div class="add_to_cart">
             <h1 style="margin-left: 2%; flex-grow: 1;">$15.99</h1>
             <input class="quantity_form_input" type="text" placeholder="1">
-            <h2><a class="nav_bar_buttons" href="/user_cart">Add to Cart</a></h2>
-	<form action="" method="post">
-   	 <button name="addcart" value= user,product.id >Add to cart</button>//
-	</form>
+
+            <form action="" method="post">
+                <input type="hidden" name="userId" value="test"/>
+                <input type="hidden" name="itemId" value="<%= product.id %>"/>
+                <input type="hidden" name="quantity" value="1" />
+                <input type="submit" name="Add to Cart" value="Add to Cart" />
+            </form>
+            
 
         </div>
     </body>

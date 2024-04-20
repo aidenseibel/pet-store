@@ -28,16 +28,18 @@ app.get('/onboarding', mainController.getOnboarding);
 app.get('/profile', mainController.getProfile);
 app.get('/listings', mainController.getListings);
 app.get('/user_product_view', mainController.getUserProductView);
+app.get('/user_product_view?listing=:listingid', mainController.getUserProductView);
 app.get('/user_cart', mainController.getUserCart);
 app.get('/user_checkout', mainController.getUserCheckout);
 app.get('/not_a_vendor_view', mainController.getNotAVendorView);
 app.get('/vendor_dashboard', mainController.getVendorDashboard);
 app.get('/vendor_product_view', mainController.getVendorProductView);
 app.get('/vendor_listings', mainController.getVendorListings);
+app.get('/logout', mainController.getLogout);
 
 // Post Routes
 app.post('/onboarding', mainController.postOnboarding);
-app.post('/add-to-cart', mainController.postCart);
+app.post('/user_product_view', mainController.postCart);
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

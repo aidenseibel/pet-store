@@ -1,0 +1,28 @@
+<!-- views/onboarding.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/styles/styles.css">
+        <link rel="stylesheet" href="/styles/onboarding_styles.css">
+        <title>Welcome</title>
+    </head>
+
+    <body>
+         <!-- Navigation Bar -->
+        <%- include ('./partials/navigation_bar.ejs') %>
+
+        <!-- Content -->
+        <h2 style="margin-left: 2%; margin-bottom: -1%">Welcome!</h2>
+
+        <!-- Main container -->
+        <div class="onboarding_view">
+		
+		<h3 style="margin-left: 2%; margin-bottom: -1%">Logged out! Thank you for your visit!</h3>
+		<a href="/listings" style="width: 25%; text-decoration: none; color: inherit;">Continue</a>
+            
+
+        </div>
+    </body>
+</html>

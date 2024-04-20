@@ -38,14 +38,12 @@ const dataModel = {
 		}
 		);
 	},
-	getProfile: (data, callback) => {
+	getProfile: (id, callback) => {
 
 		console.log("running getProfile");
-		console.log("data is: " + data);
-		console.log("using local const d instead of data")
-		const d = 'hamster'
+		console.log("id is: " + id);
 		var profile;
-		var sql = mysql.format("SELECT * FROM user WHERE username =?", [d]);
+		var sql = mysql.format("SELECT * FROM user WHERE iduserprofile =?", [id]);
 
 		mysqlConnection.query(sql, (err, results, fields) => {
 			if (err) {
@@ -54,7 +52,7 @@ const dataModel = {
 				console.log("results[0]: " + results[0].username);
 				const r = results[0];
 				profile = new User(
-					r.id,
+					r.iduserprofile,
 					r.username,
 					r.email,
 					r.password,
@@ -64,32 +62,110 @@ const dataModel = {
 					r.zip,
 					r.is_vendor,
 				);
-				//profile = results;
+				callback(profile);
 			}
 		});
 
-		return profile;
+		//return profile;
 	},
-	getProduct: (product_id) => {
-		return 'product id = ' + product_id;
-	},
-	getCart: (userId, callback) => {
+	getProduct: (product_id, callback) => {
+		var listing;
+		console.log("getting listing. product id: ");
+		console.log(product_id);
+		var sql = mysql.format("SELECT * FROM listings WHERE id =?", [product_id]);
+		mysqlConnection.query(sql, (err, results, fields) => {
+			if (err) {
+				throw err
+			} else {
+				console.log("got listing results: ");
+				console.log(results);
 
-		const sql = mysql.format("SELECT * FROM cart WHERE user = ?", [userId]);
+					const r = results[0];
+					var l = new Listing(
+						r.id,
+						r.name,
+						r.price,
+						r.vendor_id,
+						r.image_url,
+						r.amount,
+						r.ingredients,
+						r.description
+					);
+					listing = l;
+				}
+				console.log("converted results to object");
+				console.log(listing)
+				callback(listing);
+			}
+		);
+		
+		return listing;
+	},
+	getCart: (uid, callback) => {
+		const sql = mysql.format("SELECT * FROM cart WHERE userid = ?", [uid]);
 		mysqlConnection.query(sql, (err, results) => {
 			if (err) {
 				throw err
 			} else {
-				console.log("results of cart:");
-				console.log(results);
 				callback(results);
 			}
 		});
-
 		return 'cart';
 	},
 	getOrders: () => {
 		return 'orders';
+	},
+	getSession: (callback) => {
+		var sessionuser;
+		const sql = mysql.format("SELECT * FROM session");
+		mysqlConnection.query(sql, (err, results) => {
+			if (err) {
+				throw err
+			} else {
+				if(results[0] != null){
+					console.log("current session:");
+					console.log(results[0]);
+					dataModel.getProfile(results[0].userid,function(sessionuser){
+						callback(sessionuser);
+					});
+				} else { 
+					console.log("no session found");
+					callback(sessionuser);
+
+				}	
+			}
+		});
+	},
+	createSession: (u, callback) => {
+		console.log("creating session for ");
+		console.log(u.id);
+		var c = "Failed";
+
+		var sql = mysql.format("INSERT INTO session(userid) VALUE (?)", [u.id]);
+
+		mysqlConnection.query(sql, (err, results, fields) => {
+			if (err) {
+				throw err
+			} else {
+				console.log("made insert query to session without errors");
+				c = "Success";
+			}
+		});
+
+	callback(c);
+	},
+	endSession:(callback) => {
+		console.log("ending session");
+		var sql = mysql.format("DELETE FROM session");
+
+		mysqlConnection.query(sql, (err, results, fields) => {
+			if (err) {
+				throw err
+			} else {
+				console.log("deleted all from session");
+				callback("Success");
+			}
+		});
 	},
 	insertProfile: (e, u, p, callback) => {
 		console.log("running createProfile");
@@ -108,11 +184,11 @@ const dataModel = {
 
 		callback(c);
 	},
-	insertCart: (u, l, q, callback) => {
+	insertCart: (uid, lid, q, callback) => {
 		console.log("putting item in cart");
 		var c = "Failed";
 
-		var sql = mysql.format("INSERT INTO cart(user,listing, quantity) VALUES (?,?,?)", [u, l, q]);
+		var sql = mysql.format("INSERT INTO cart(userid,listing, quantity) VALUES (?,?,?)", [uid, lid, q]);
 
 		mysqlConnection.query(sql, (err, results, fields) => {
 			if (err) {
@@ -126,11 +202,12 @@ const dataModel = {
 		callback(c);
 	},
   matchProfile: (u,p,callback) =>{
-	var c = "Failed";
+	var c;
 	var profile;
 	var sql = mysql.format("SELECT * FROM user WHERE username =? AND password = ?",[u,p]);
 	mysqlConnection.query(sql, (err, results, fields) => {
       	  	if (err) {
+				throw err;
           	} else {
 		    if(results.length > 0){
 			var c = "Success";
@@ -141,7 +218,7 @@ const dataModel = {
 			const r = results[0];
 			console.log(results[0].username);
 		 	profile = new User(
-				r.id,
+				r.iduserprofile,
 				r.username,
 				r.email,
 				r.password,
@@ -151,46 +228,15 @@ const dataModel = {
 				r.zip,
 				r.is_vendor,
 				);
+				callback(profile,c);
 		    } else {
-			var c = "Failed";
-			console.log("Did not find match");
+				var c = "Failed";
+				console.log("Did not find match");
+				callback(profile,c);
 		    }
           	}
     	});
-      callback(c);
      }
 };
 
 module.exports = dataModel;
-//module.exports = Router;
-
-
-///
-
-// dataModel.js
-
-//const mysqlConnection = require('./database');
-
-// function addToCart(userId, itemId, quantity, callback) {
-// 	const sql = 'INSERT INTO cart_items (user_id, item_id, quantity) VALUES (?, ?, ?)';
-// 	mysqlConnection.query(sql, [userId, itemId, quantity], (err, result) => {
-// 		if (err) {
-// 			callback(err, null);
-// 		} else {
-// 			callback(null, result);
-// 		}
-// 	});
-// }
-
-// function getCartItems(userId, callback) {
-// 	const sql = 'SELECT * FROM cart_items WHERE user_id = ?';
-// 	mysqlConnection.query(sql, [userId], (err, result) => {
-// 		if (err) {
-// 			callback(err, null);
-// 		} else {
-// 			callback(null, result);
-// 		}
-// 	});
-// }
-
-//module.exports = { addToCart, getCartItems };

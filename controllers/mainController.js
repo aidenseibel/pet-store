@@ -1,7 +1,9 @@
+//IMPORTS======================================================
 const dataModel = require('../models/dataModel');
 const Listing = require('../utils/class_listing');
 const User = require('../utils/class_user');
 
+//EXAMPLE DATA FOR DEBUGGING===================================
 const sample_user = {
   username: "leeroy tiger",
   email: "leeroy@trinity.edu",
@@ -60,36 +62,66 @@ const sample_cart = {
   quantities: [1, 2, 3] // by index
 }
 
+
+
+//==============================================================
+//                   MAINCONTROLLER
+//==============================================================
+//MAINCONTROLLER: A list of get and post functions. Called by app.js. Example: app.js: (/home, mainController.getHome);
+//   use get functions to display views or redirect. you may use GET data from url. (/home?userid=1)
+//   use post functions to send data to the database. sends hidden POST request data to database.
 const mainController = {
   getOnboarding: (req, res) => {
+    //Display the 'onboarding' view
     res.render('onboarding');
   },
   getProfile: (req, res) => {
-    const d = 'secondusertest'
-    const profile = dataModel.getProfile(d);
-    res.render('user/user_profile', { profile });
+    var profile;
+    dataModel.getSession(function(profile){  
+      if(profile){
+        res.render('user/user_profile', { profile });
+      } else {
+        res.redirect('/onboarding');
+      }
+    });
   },
   getListings: (req, res) => {
     var all_listings = [];
     dataModel.getAllListings(function(all_listings) {
-   	 res.render('listings', { all_listings, profile });
+   	 res.render('listings', { all_listings});
     });
-    const profile = dataModel.getProfile();
   },
   getUserProductView: (req, res) => {
-    const product_id = req.body.product_id;
-    const product = dataModel.getProduct(product_id);
-    res.render('user/user_product_view', { product });
+    const product_id = req.query.listingid;
+    var product;
+    dataModel.getProduct(product_id, function(product){
+      res.render('user/user_product_view', { product });
+    });   
   },
   getUserCart: (req, res) => {
     var cart = [];
-    dataModel.getCart('test', function(cart){
-      res.render('user/user_cart', { cart });
+    var session;
+    dataModel.getSession(function(session){
+      if(session){
+        dataModel.getCart(session.id, function(cart){
+          res.render('user/user_cart', { cart });
+        });
+      }else{
+        res.redirect('/onboarding');
+      }
     });
   },
   getUserCheckout: (req, res) => {
-    const cart = dataModel.getCart();
-    res.render('user/user_checkout', { cart });
+    var cart = [];
+    dataModel.getSession(function(session){
+      if(session){
+        dataModel.getCart(session.id,function(cart){
+          res.render('user/user_checkout', { cart });
+        });
+      }else{
+        res.redirect('/onboarding');
+      }
+    });
   },
   getVendorDashboard: (req, res) => {
     const profile = dataModel.getProfile();
@@ -111,76 +143,79 @@ const mainController = {
     const product = dataModel.getProduct(product_id);
     res.render('vendor/vendor_product_view', { product });
   },
+  getLogout:(req,res) => {
+    dataModel.getSession(function(session){
+      if(session){
+        var status;
+        dataModel.endSession(function(status){
+          res.render('onboarding_loggedout');
+        });
+      }else{
+        res.redirect('/onboarding');
+      }
+    });
+  },
   postOnboarding: (req, res) => {
     //handling the POST request made by the form on onboarding.js
     action = req.body.action;
     console.log(action);
-	if(action == "createaccount"){
+	  if(action == "createaccount"){
     		var newEmail = req.body.newEmail;
     		var newUser = req.body.newUsername;
     		var newPassword = req.body.newPassword;
     		dataModel.insertProfile(newEmail,newUser,newPassword, function(){
       			res.render('onboarding_accountcreated', { newUser });
     		});
-	}
-	if(action == "login"){
-		var loginUser = new User;
-		var queryUsername = req.body.queryUsername;
-		var queryPassword = req.body.queryPassword;
-		dataModel.matchProfile(queryUsername,queryPassword,function(status){
-			console.log(status);
-			if(status == "Success"){
-      				res.render('onboarding_loggedin', { });
-			}
-			if(status != "Success"){
-			    res.render('onboarding',{});
-			}
-    		});
+	  }
+	  if(action == "login"){
+      var session;
+      dataModel.getSession(function(session){
+        if(session){
+          res.redirect('/onboarding');
+        } else {
+          var loginUser = new User;
+          var status;
+          var queryUsername = req.body.queryUsername;
+          var queryPassword = req.body.queryPassword;
+          dataModel.matchProfile(queryUsername,queryPassword,function(loginUser,status){
+            console.log(status);
+            console.log(loginUser);
+            if(status == "Success"){
+              var sessionstatus;
+              dataModel.createSession(loginUser,function(sessionstatus){
+                res.render('onboarding_loggedin', { });
+              });
+            }
+            if(status != "Success"){
+              res.render('onboarding',{});
+            }
+          });
+        }
+      });
+
 		
 	}
   },
   postCart: (req, res) => {
-    console.log("postCart");
-    var userID = req.body.userID;
-    var itemID = req.body.itemId;
-    var quantity = req.body.quantity;
-    dataModel.addToCart(userID, itemID, quantity, function (err,result) {
-      res.render('onboarding_accountcreated', { result });
-    });
+    var session;
+    dataModel.getSession(function(session){
+      console.log("postcart session: ");
+      console.log(session);
+      if(session){
+        console.log("postCart");
+        var userID = session.id;
+        var itemID = req.body.itemId;
+        var quantity = req.body.quantity;
+        dataModel.insertCart(userID, itemID, quantity, function (err,result) {
+          res.redirect('/user_cart');
+        });
+      } else {
+        res.redirect('/onboarding');
+      }
+    })
+
+ 
   },
 };
 
 module.exports = mainController;
-
-
-//
-// // mainController.js
-
-// const express = require('express');
-// const router = express.Router();
-
-// // Add to cart route
-// router.post('/add-to-cart', (req, res) => {
-//   const { userId, itemId, quantity } = req.body;
-//   dataModel.addToCart(userId, itemId, quantity, (err, result) => {
-//     if (err) {
-//       res.status(500).send('Error adding item to cart');
-//     } else {
-//       res.sendStatus(200);
-//     }
-//   });
-// });
-
-// // Retrieve cart items route
-// router.get('/cart-items/:userId', (req, res) => {
-//   const userId = req.params.userId;
-//   dataModel.getCartItems(userId, (err, result) => {
-//     if (err) {
-//       res.status(500).send('Error retrieving cart items');
-//     } else {
-//       res.json(result);
-//     }
-//   });
-// });
-
-// module.exports = router;
