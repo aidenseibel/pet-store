@@ -1,0 +1,11 @@
+id,username,email,password,physical_address,city,state,zip,is_vendor
+1,hamster,hamster@store.com,store,3499 Hamster Dr,Hamsterville,Hamster,78254,1
+2,leeroytiger,leeroy@trinity.edu,leeroy!,1 Trinity Place,San Antonio,Texas,78212,0
+3,aseibel,aseibel@trinity.edu,aiden,1 Trinity Place,San Antonio,Texas,78212,0
+4,mholveck,mholveck@trinity.edu,madelyn,1 Trinity Place,San Antonio,Texas,78212,0
+5,dsuper,dsuper@trinity.edu,dani,1 Trinity Place,San Antonio,Texas,78212,0
+6,jcangemi,jcangemi@trinity.edu,joseph,1 Trinity Place,San Antonio,Texas,78212,0
+7,therock,therock@gmail.com,dwayne,12 Ocean Boulevard,Los Angeles,California,90001,1
+8,the_maria1,maria@gmail.com,maria,45 Westminster Abbey Road,London,UK,78212,1
+9,prada,prada@gmail.com,homme,10 Notre Dame Street,Paris,France,78212,1
+10,mr_rains_concoctions,cia@cia.gov,password,1600 Pennsylvania Avenue,Washington,DC,78212,1

@@ -1,17 +1,15 @@
-CREATE DATABASE `hamsterstore_test` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE SCHEMA `hamsterstore_test`;
 
-USE 'hamsterstore_test'
-
-CREATE TABLE `cart` (
+CREATE TABLE `hamsterstore_test`.`cart` (
   `userid` int NOT NULL,
   `listing` int NOT NULL,
   `quantity` int NOT NULL,
   `cartitemid` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`cartitemid`),
   UNIQUE KEY `userid_UNIQUE` (`cartitemid`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
-CREATE TABLE `listings` (
+CREATE TABLE `hamsterstore_test`.`listings` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `price` float unsigned NOT NULL,
@@ -25,9 +23,9 @@ CREATE TABLE `listings` (
   UNIQUE KEY `idlistings_UNIQUE` (`id`),
   UNIQUE KEY `owneremail_UNIQUE` (`name`),
   KEY `vendor_username_idx` (`vendor_username`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
-CREATE TABLE `orders` (
+CREATE TABLE `hamsterstore_test`.`orders` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
   `seller_id` int DEFAULT NULL,
@@ -38,17 +36,17 @@ CREATE TABLE `orders` (
   `date_of_delivery` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
-CREATE TABLE `session` (
+CREATE TABLE `hamsterstore_test`.`session` (
   `idsession` int NOT NULL AUTO_INCREMENT,
   `userid` int NOT NULL,
   PRIMARY KEY (`idsession`),
   UNIQUE KEY `userid_UNIQUE` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
-CREATE TABLE `user` (
-  `iduserprofile` int unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `hamsterstore_test`.`user` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
@@ -57,11 +55,9 @@ CREATE TABLE `user` (
   `state` varchar(45) DEFAULT NULL,
   `zip` varchar(45) DEFAULT NULL,
   `is_vendor` tinyint unsigned DEFAULT NULL,
-  PRIMARY KEY (`iduserprofile`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`),
-  UNIQUE KEY `iduserprofile_UNIQUE` (`iduserprofile`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='usernames, emails, passwords, addresses, etc';
-
-
+);
 

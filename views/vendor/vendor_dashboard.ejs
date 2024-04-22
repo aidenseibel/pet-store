@@ -15,17 +15,17 @@
         <%- include ('../partials/vendor_navigation_bar.ejs') %>
 
         <!-- Title -->
-        <h2 style="margin-left: 2%;">All Open Orders (<%=profile.vendor_orders.length %>)</h2>
+        <h2 style="margin-left: 2%;">All Open Orders (<%=orders.length %>)</h2>
 
         <!-- Main Container -->
         <div class="vendor_dashboard_view">
 
             <!-- All Orders - Left Side of Page -->
             <div class="vendor_current_orders_container">
-                <%if(profile.vendor_orders.length == 0){%>            
-                    <h2 style="font-family: 'Poppins Light';">You do not have any open orders.</h2>
+                <%if(orders.length == 0){%>            
+                    <body style="font-family: 'Poppins Light';">You do not have any open orders.</body>
                 <%} else { 
-                    for (let i = 0; i < profile.vendor_orders.length; i++) { %>
+                    for (let i = 0; i < orders.length; i++) { %>
                         <a href="/vendor_product_view" style="text-decoration: none; color: inherit;"><%- include ('../partials/vendor_order_subview.ejs') %></a>
                 <% }}%>
             </div>
@@ -37,7 +37,7 @@
                 <!-- OPEN Orders Count -->
                 <div class="information_row">
                     <p>Open Orders</p>
-                    <p><%=profile.vendor_orders.length %></p>
+                    <p><%=orders.length %></p>
                 </div>
 
                 <!-- Products Count -->

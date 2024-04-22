@@ -23,6 +23,7 @@ const dataModel = {
 						r.name,
 						r.price,
 						r.vendor_id,
+						r.vendor_username,
 						r.image_url,
 						r.amount,
 						r.ingredients,
@@ -86,6 +87,7 @@ const dataModel = {
 						r.name,
 						r.price,
 						r.vendor_id,
+						r.vendor_username,
 						r.image_url,
 						r.amount,
 						r.ingredients,
@@ -131,7 +133,6 @@ const dataModel = {
 				} else { 
 					console.log("no session found");
 					callback(sessionuser);
-
 				}	
 			}
 		});
