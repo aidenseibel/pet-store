@@ -314,7 +314,24 @@ const mainController = {
         res.redirect('/onboarding');
       }
     })
-  }
+  },
+
+  removeCart: (req, res) => {
+    var session;
+    dataModel.getSession(function(session){
+      if(session){
+        console.log("post order: ", req.body);
+
+        var uid = session.id;
+
+        dataModel.removeCart(uid, function(c){
+        });
+
+      } else {
+        res.redirect('/onboarding');
+      }
+    })
+  },
 };
 
 

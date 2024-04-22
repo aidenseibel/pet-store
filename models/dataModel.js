@@ -75,6 +75,7 @@ const dataModel = {
 			if (err) {
 				throw err
 			} else {
+				console.log(results)
 				console.log("results[0]: " + results[0].username);
 				const r = results[0];
 				profile = new User(
@@ -265,6 +266,24 @@ const dataModel = {
 
 		callback(c);
 	},
+
+	removeCart: (uid, callback) => {
+		console.log("Removing cart items");
+		var c = "Failed";
+	
+		var sql = mysql.format("DELETE FROM cart WHERE userid = ?", [uid]);
+	
+		mysqlConnection.query(sql, (err, results, fields) => {
+			if (err) {
+				throw err;
+			} else {
+				console.log("Deleted cart items without errors");
+				c = "Success";
+			}
+		});
+	
+		callback(c);
+	},	
 	
 	insertOrder: (uid, vid, pid, q, hbd, callback) =>{
 		var c = "Failed";
@@ -277,6 +296,14 @@ const dataModel = {
 			} else {
 				console.log("made insert query to orders without errors");
 				c = "Success";
+
+				dataModel.removeCart(uid, function(status) {
+					if (status === "Success") {
+						console.log("Cart cleared successfully");
+					} else {
+						console.error("Failed to clear cart");
+					}
+				});	
 			}
 		});
 

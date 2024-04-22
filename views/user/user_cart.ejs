@@ -14,7 +14,13 @@
         <%- include ('../partials/navigation_bar.ejs') %>
 
         <!-- Title -->
-        <h2 style="margin-left: 2%;">Shopping Cart%></h2>
+        <div style="display: flex; flex-flow: row; align-items: center; gap: 5%;">
+            <h2 style="margin-left: 2%;">Shopping Cart%></h2>
+            <form action="" method="post">
+                <input type="submit" name="Submit Order" value="Empty Cart" />
+            </form>
+    
+        </div>
 
         <!-- Main Container -->
         <div class="shopping_cart_view">
@@ -29,7 +35,7 @@
                 <!-- Cart contents -->
                     <%} else { 
                     cart_items.forEach(listing => { %>
-                        <a href="/user_product_view" style="text-decoration: none; color: inherit; width: 90%;">
+                        <a href="/user_product_view?listingid=<%= listing.id %>" style="text-decoration: none; color: inherit; width: 90%;">
                             <%- include ('../partials/listing_subview_list.ejs', { listing }) %>
                         </a>
                 <%});}%>

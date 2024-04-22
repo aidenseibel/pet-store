@@ -15,20 +15,20 @@
         <%- include ('../partials/vendor_navigation_bar.ejs') %>
 
         <!-- Title -->
-        <h2 style="margin-left: 2%;">All Open Orders (<%=all_orders.length %>)</h2>
+        <h2 style="margin-left: 2%;">All Open Orders (<%=openOrders.length %>)</h2>
 
         <!-- Main Container -->
         <div class="vendor_dashboard_view">
 
             <!-- All Orders - Left Side of Page -->
             <div class="vendor_current_orders_container">
-                <%if(all_orders.length == 0){%>            
+                <%if(openOrders.length == 0){%>            
                     <body style="font-family: 'Poppins Light';">You do not have any open orders.</body>
                 <%} else { 
-                    all_orders.forEach(arr => {
+                    openOrders.forEach(arr => {
                         const [order, product, user] = arr;
                         %>
-                        <a href="/vendor_product_view" style="text-decoration: none; color: inherit;"><%- include ('../partials/vendor_order_subview.ejs', { order, product, user }) %></a>
+                        <a href="/vendor_product_view?listingid=<%= product.id %>" style="text-decoration: none; color: inherit;"><%- include ('../partials/vendor_order_subview.ejs', { order, product, user }) %></a>
                 <% });}%>
             </div>
 
@@ -59,7 +59,6 @@
                     <p>Total Earnings</p>
                     <p>$<%=total_earnings%></p>
                 </div>
-
             </div>
         </div>
     </body>

@@ -36,7 +36,7 @@
                             const [order, product] = arr;
                             user = profile;
                             %>
-                            <a href="user_product_view" style="text-decoration: none; color: inherit;"><%- include ('../partials/vendor_order_subview.ejs', { order, product, user }) %></a>
+                            <a href="user_product_view?listingid=<%= product.id %>" style="text-decoration: none; color: inherit;"><%- include ('../partials/vendor_order_subview.ejs', { order, product, user }) %></a>
                             <%
                         });}
                     %>
@@ -48,10 +48,13 @@
                     <%if(previous_orders.length == 0){%>            
                         <h2 style="font-family: 'Poppins Light';">You do not have any previous orders.</h2>
                     <%} else { 
-                        previous_orders.forEach(arr => { %>
-                            <h1>hi</h1>
+                        previous_orders.forEach(arr => { 
+                            const [order, product] = arr;
+                            user = profile;
+                            %>
+                            <a href="user_product_view?listingid=<%= product.id %>" style="text-decoration: none; color: inherit;"><%- include ('../partials/vendor_order_subview.ejs', { order, product, user }) %></a>
                             <%
-                    });}
+                        });}
                     %>
                 </div>
             </div>
