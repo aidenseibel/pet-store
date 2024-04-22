@@ -23,11 +23,11 @@
             <div class="user_product_info">
                 <div class="information_row">
                     <p>Vendor</p>
-                    <p class="product_information_detail_text"><%=product.vendor_name %> </p>
+                    <p class="product_information_detail_text"><%=vendor.username %> </p>
                 </div>
                 <div class="information_row">
                     <p>Vendor Location</p>
-                    <p class="product_information_detail_text"><%=product.vendor_location %></p>
+                    <p class="product_information_detail_text"><%=vendor.physical_address %></p>
                 </div>
                 <div class="information_row">
                     <p>Amount</p>
@@ -52,8 +52,8 @@
 
         <!-- Add to Cart Button - Bottom of Page, includes quantity -->
         <div class="add_to_cart">
-            <h1 style="margin-left: 2%; flex-grow: 1;">$15.99</h1>
-            <input class="quantity_form_input" type="text" placeholder="1">
+            <h1 style="margin-left: 2%; flex-grow: 1;">$<%= product.price%></h1>
+            <!-- <input class="quantity_form_input" type="text" placeholder="1"> -->
 
             <form action="" method="post">
                 <input type="hidden" name="userId" value="test"/>

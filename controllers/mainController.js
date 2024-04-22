@@ -2,7 +2,7 @@
 const dataModel = require('../models/dataModel');
 const Listing = require('../utils/class_listing');
 const User = require('../utils/class_user');
-
+const async = require('async');
 
 //==============================================================
 //                   MAINCONTROLLER
@@ -35,7 +35,9 @@ const mainController = {
     const product_id = req.query.listingid;
     var product;
     dataModel.getProduct(product_id, function(product){
-      res.render('user/user_product_view', { product });
+      dataModel.getProfile(product.vendor_id, function(vendor){
+        res.render('user/user_product_view', { product, vendor });
+      });
     });   
   },
   getUserCart: (req, res) => {
@@ -44,7 +46,30 @@ const mainController = {
     dataModel.getSession(function(session){
       if(session){
         dataModel.getCart(session.id, function(cart){
-          res.render('user/user_cart', { cart });
+          var cart_items = [];
+          // Loop through each item ID in the cart
+          async.each(cart, function(item, callback) {
+              // Retrieve product details for each item ID
+              dataModel.getProduct(item.listing, function(product) {
+                  // Add the product to the cart_items array
+                  cart_items.push(product);
+                  callback(); // Move to the next item
+              });
+          }, function(err) {
+              if (err) {
+                  // Handle error if any
+                  console.error('Error retrieving cart items:', err);
+                  res.status(500).send('Internal Server Error');
+              } else {
+                  var subtotal = getSubtotal(cart_items);
+                  var tax = Math.round(10 ** 2 * (subtotal * 0.0825)) / 10 ** 2
+                  var shipping = 9.99
+                  var total = Math.round(10 ** 2 * (subtotal + tax + shipping)) / 10 ** 2
+
+                  // Render the user cart with complete product information
+                  res.render('user/user_cart', { cart_items, subtotal, tax, shipping, total});
+              }
+          });
         });
       }else{
         res.redirect('onboarding');
@@ -56,7 +81,29 @@ const mainController = {
     dataModel.getSession(function(session){
       if(session){
         dataModel.getCart(session.id,function(cart){
-          res.render('user/user_checkout', { cart });
+          var cart_items = [];
+          async.each(cart, function(item, callback) {
+            // Retrieve product details for each item ID
+            dataModel.getProduct(item.listing, function(product) {
+                // Add the product to the cart_items array
+                cart_items.push(product);
+                callback(); // Move to the next item
+            });
+        }, function(err) {
+            if (err) {
+                // Handle error if any
+                console.error('Error retrieving cart items:', err);
+                res.status(500).send('Internal Server Error');
+            } else {
+                var subtotal = getSubtotal(cart_items);
+                var tax = Math.round(10 ** 2 * (subtotal * 0.0825)) / 10 ** 2
+                var shipping = 9.99
+                var total = Math.round(10 ** 2 * (subtotal + tax + shipping)) / 10 ** 2
+                var deliveryDate = getDateAWeekFromNow();
+                // Render the user cart with complete product information
+                res.render('user/user_checkout', { cart_items, subtotal, tax, shipping, total, deliveryDate});
+            }
+          });
         });
       }else{
         res.redirect('/onboarding');
@@ -68,19 +115,43 @@ const mainController = {
     dataModel.getSession(function(profile){  
       if(profile){
         if(profile.is_vendor){
-          dataModel.getProfile(profile.id, function(profile){
-            const orders = [];
-          // const orders = dataModel.getOrders(profile.id);
-            res.render('vendor/vendor_dashboard', { profile, orders });
-          });
-        }else{
+          const orders = [];
+          dataModel.getOrders(profile.id, function(orders){
+            all_orders = [];
+            openOrders = [];
+            total_earnings = 0;
+            async.each(orders, function(order, callback) {
+                // Retrieve product details for each item ID
+                dataModel.getProduct(order.product_id, function(product) {
+                    total_earnings += product.price * order.quantity;
+                    // Retrieve user details for the order
+                    dataModel.getProfile(order.user_id, function(user) {
+                        all_orders.push([order, product, user]);
+                        if(!order.has_been_delivered){
+                            openOrders.push([order, product, user]);
+                        }
+                        callback(); // Move to the next item
+                    });
+                });
+            }, function(err) {
+                if (err) {
+                    // Handle error if any
+                    console.error('Error retrieving cart items:', err);
+                    res.status(500).send('Internal Server Error');
+                } else {
+                    total_earnings = Math.round(10 ** 2 * (total_earnings)) / 10 ** 2
+                    // Render the user cart with complete product information
+                    res.render('vendor/vendor_dashboard', { profile, all_orders, openOrders, total_earnings });
+                }
+            });
+        });
+                }else{
           res.render('vendor/not_a_vendor_view', {});
         }
       } else {
         res.redirect('onboarding');
       }
     });
-
   },
   getVendorProductView: (req, res) => {
     const product_id = req.body.product_id;
@@ -93,9 +164,23 @@ const mainController = {
     res.render('vendor/vendor_product_view', { product });
   },
   getVendorListings: (req, res) => {
-    const product_id = req.body.product_id;
-    const product = dataModel.getProduct(product_id);
-    res.render('vendor/vendor_product_view', { product });
+    var profile;
+    dataModel.getSession(function(profile){  
+      if(profile){
+        if(profile.is_vendor){
+          dataModel.getProfile(profile.id, function(profile){
+            const listings = [];
+            dataModel.getListings(profile.id, function(listings){
+              res.render('vendor/vendor_listings', { profile, listings });
+            })
+          });
+        }else{
+          res.render('vendor/not_a_vendor_view', {});
+        }
+      } else {
+        res.redirect('onboarding');
+      }
+    });
   },
   getLogout:(req,res) => {
     dataModel.getSession(function(session){
@@ -117,6 +202,7 @@ const mainController = {
     		var newEmail = req.body.newEmail;
     		var newUser = req.body.newUsername;
     		var newPassword = req.body.newPassword;
+        
     		dataModel.insertProfile(newEmail,newUser,newPassword, function(){
       			res.render('onboarding_accountcreated', { newUser });
     		});
@@ -137,7 +223,9 @@ const mainController = {
             if(status == "Success"){
               var sessionstatus;
               dataModel.createSession(loginUser,function(sessionstatus){
-                res.render('onboarding_loggedin', { });
+                var profile = loginUser;
+                console.log("profile: ", profile)
+                res.render('user/user_profile', { profile });
               });
             }
             if(status != "Success"){
@@ -169,6 +257,32 @@ const mainController = {
     })
   },
 };
+
+function getSubtotal(cartItems) {
+  let subtotal = 0;
+  cartItems.forEach(item => {
+      subtotal += item.price; // Assuming each item has a 'price' property
+  });
+  return subtotal;
+}
+
+function getDateAWeekFromNow() {
+  let currentDate = new Date();
+  let oneWeekLater = new Date(currentDate.getTime() + (7 * 24 * 60 * 60 * 1000));
+
+  const months = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+  ];
+
+  // Extract month and day from the one week later date
+  let monthIndex = oneWeekLater.getMonth();
+  let monthName = months[monthIndex];
+  let day = oneWeekLater.getDate();
+
+  // Return the date string in the format "MMMM DDth"
+  return `${monthName} ${day}`;
+}
 
 module.exports = mainController;
 

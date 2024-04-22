@@ -23,12 +23,12 @@
             <div class="shopping_cart_listings">
                 
                 <!-- If cart is empty, show message -->
-                <%if(cart.length == 0){%>            
+                <%if(cart_items.length == 0){%>            
                     <h3 style="font-family: 'Poppins Light';">Your cart is empty!</h3>
                 
                 <!-- Cart contents -->
                     <%} else { 
-                    cart.forEach(listing => { %>
+                    cart_items.forEach(listing => { %>
                         <a href="/user_product_view" style="text-decoration: none; color: inherit; width: 90%;">
                             <%- include ('../partials/listing_subview_list.ejs', { listing }) %>
                         </a>
@@ -42,13 +42,13 @@
                 <!-- Product Count -->
                 <div class="information_row">
                     <p>Products</p>
-                    <p><%=cart.length%></p>
+                    <p><%=cart_items.length%></p>
                 </div>
 
                 <!-- Order Subtotal -->
                 <div class="information_row">
                     <p>Subtotal</p>
-                    <p>$26.99</p>
+                    <p>$<%=subtotal%></p> 
                 </div>
 
                 <!-- Tax -->
@@ -60,13 +60,13 @@
                 <!-- Shipping -->
                 <div class="information_row">
                     <p>Shipping</p>
-                    <p>$13.49</p>
+                    <p>$<%=shipping%></p>
                 </div>
 
                 <!-- Order Total -->
                 <div class="information_row">
                     <p>Total</p>
-                    <p>$43.99</p>
+                    <p>$<%=total%></p>
                 </div>
 
                 <!-- Checkout Button -->

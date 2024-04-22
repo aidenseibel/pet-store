@@ -15,19 +15,21 @@
         <%- include ('../partials/vendor_navigation_bar.ejs') %>
 
         <!-- Title -->
-        <h2 style="margin-left: 2%;">All Open Orders (<%=orders.length %>)</h2>
+        <h2 style="margin-left: 2%;">All Open Orders (<%=all_orders.length %>)</h2>
 
         <!-- Main Container -->
         <div class="vendor_dashboard_view">
 
             <!-- All Orders - Left Side of Page -->
             <div class="vendor_current_orders_container">
-                <%if(orders.length == 0){%>            
+                <%if(all_orders.length == 0){%>            
                     <body style="font-family: 'Poppins Light';">You do not have any open orders.</body>
                 <%} else { 
-                    for (let i = 0; i < orders.length; i++) { %>
-                        <a href="/vendor_product_view" style="text-decoration: none; color: inherit;"><%- include ('../partials/vendor_order_subview.ejs') %></a>
-                <% }}%>
+                    all_orders.forEach(arr => {
+                        const [order, product, user] = arr;
+                        %>
+                        <a href="/vendor_product_view" style="text-decoration: none; color: inherit;"><%- include ('../partials/vendor_order_subview.ejs', { order, product, user }) %></a>
+                <% });}%>
             </div>
 
             <!-- Vendor Summary - Right Side of Page -->
@@ -37,7 +39,7 @@
                 <!-- OPEN Orders Count -->
                 <div class="information_row">
                     <p>Open Orders</p>
-                    <p><%=orders.length %></p>
+                    <p><%=openOrders.length %></p>
                 </div>
 
                 <!-- Products Count -->
@@ -46,34 +48,16 @@
                     <p>3</p>
                 </div>
 
-                <!-- Earnings THIS MONTH -->
-                <div class="information_row">
-                    <div style="display: flex; flex-direction: row; gap: 5%;">
-                        <p>Earnings</p>
-                        <p style="font-family: 'Poppins Light'; opacity: 50%;">(August)</p>
-                    </div>
-                    <p>$153.99</p>
-                </div>
-
-                <!-- Order Count THIS MONTH -->
-                <div class="information_row">
-                    <div style="display: flex; flex-direction: row; gap: 5%;">
-                        <p>Orders</p>
-                        <p style="font-family: 'Poppins Light'; opacity: 50%;">(August)</p>
-                    </div>
-                    <p>17</p>
-                </div>
-
                 <!-- Total Order Count -->
                 <div class="information_row">
                     <p>Total Orders</p>
-                    <p>67</p>
+                    <p><%=all_orders.length %></p>
                 </div>
 
                 <!-- Total Earnings Amount -->
                 <div class="information_row">
                     <p>Total Earnings</p>
-                    <p>$1,204.32</p>
+                    <p>$<%=total_earnings%></p>
                 </div>
 
             </div>

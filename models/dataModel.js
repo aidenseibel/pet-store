@@ -2,19 +2,19 @@ const express = require("express");
 const mysql = require("mysql");
 const mysqlConnection = require("../utils/database");
 const Listing = require("../utils/class_listing")
-const User = require("../utils/class_user")
+const User = require("../utils/class_user");
+const Order = require("../utils/class_order");
 
 const dataModel = {
 	getAllListings: (callback) => {
 		var listings = [];
-		console.log("getting listings")
 		var sql = mysql.format("SELECT * FROM listings");
 		mysqlConnection.query(sql, (err, results, fields) => {
 			if (err) {
+				console.log("Failed to get listings")
 				throw err
 			} else {
-				console.log("got listing results: ");
-				console.log(results);
+				console.log("Fetched", results.length, "listings");
 
 				for (let i = 0; i < results.length; i++) {
 					const r = results[i];
@@ -32,15 +32,40 @@ const dataModel = {
 
 					listings.push(l);
 				}
-				console.log("converted results to object");
-				console.log(listings)
 				callback(listings);
 			}
 		}
 		);
 	},
-	getProfile: (id, callback) => {
 
+	getListings: (vendor_id, callback) => {
+		var listings = [];
+		var sql = mysql.format("SELECT * FROM listings WHERE vendor_id =?", [vendor_id]);
+		mysqlConnection.query(sql, (err, results, fields) => {
+			if (err) {
+				throw err
+			} else {
+				results.forEach(function(r) {
+					var l = new Listing(
+						r.id,
+						r.name,
+						r.price,
+						r.vendor_id,
+						r.vendor_username,
+						r.image_url,
+						r.amount,
+						r.ingredients,
+						r.description
+					);
+					listings.push(l)
+				});
+			}
+			console.log(listings)
+			callback(listings);
+		}
+	);},
+		
+	getProfile: (id, callback) => {
 		console.log("running getProfile");
 		console.log("id is: " + id);
 		var profile;
@@ -66,20 +91,15 @@ const dataModel = {
 				callback(profile);
 			}
 		});
-
-		//return profile;
 	},
 	getProduct: (product_id, callback) => {
 		var listing;
-		console.log("getting listing. product id: ");
-		console.log(product_id);
+		console.log("Fetched listing w/ product id", product_id, ":");
 		var sql = mysql.format("SELECT * FROM listings WHERE id =?", [product_id]);
 		mysqlConnection.query(sql, (err, results, fields) => {
 			if (err) {
 				throw err
 			} else {
-				console.log("got listing results: ");
-				console.log(results);
 
 					const r = results[0];
 					var l = new Listing(
@@ -95,7 +115,6 @@ const dataModel = {
 					);
 					listing = l;
 				}
-				console.log("converted results to object");
 				console.log(listing)
 				callback(listing);
 			}
@@ -114,9 +133,29 @@ const dataModel = {
 		});
 		return 'cart';
 	},
-	getOrders: () => {
-		return 'orders';
-	},
+	getOrders: (vendor_id, callback) => {
+		var orders = [];
+		var sql = mysql.format("SELECT * FROM orders WHERE vendor_id =?", [vendor_id]);
+		mysqlConnection.query(sql, (err, results, fields) => {
+			if (err) {
+				throw err
+			} else {
+				results.forEach(function(r) {
+					var l = new Order(
+						r.id,
+						r.user_id,
+						r.vendor_id,
+						r.product_id,
+						r.quantity,
+						r.has_been_delivered,
+					);
+					orders.push(l)
+				});
+			}
+			callback(orders);
+		}
+	);},
+
 	getSession: (callback) => {
 		var sessionuser;
 		const sql = mysql.format("SELECT * FROM session");

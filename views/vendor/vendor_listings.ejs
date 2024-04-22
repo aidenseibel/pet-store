@@ -15,16 +15,16 @@
         <%- include ('../partials/vendor_navigation_bar.ejs') %>
 
         <!-- Content -->
-        <h2 style="margin-left: 2%;"><%=profile.username %>'s Listings (<%=vendor_listings.length %>)</h2>
+        <h2 style="margin-left: 2%;"><%=profile.username %>'s Listings (<%=listings.length %>)</h2>
 
         <!-- Main Container -->
         <div class="all_listings">
 
             <!-- All listings -->
-            <%if(vendor_listings.length == 0){%>            
+            <%if(listings.length == 0){%>            
                 <h3 style="font-family: 'Poppins Light';">You do not have any listings!</h3>
             <%} else { 
-                vendor_listings.forEach(listing => { %>
+                listings.forEach(listing => { %>
                     <a href="/user_product_view" style="width: 25%; text-decoration: none; color: inherit;">
                         <%- include ('../partials/listing_subview_square.ejs', { listing }) %>
                     </a>

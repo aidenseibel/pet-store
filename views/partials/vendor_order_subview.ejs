@@ -11,31 +11,31 @@
         <div class="vendor_order_subview">
 
             <!-- Image - Left -->
-            <img src="https://www.creativefabrica.com/wp-content/uploads/2023/04/06/Cute-Hamster-kawaii-clipart-Graphics-66428546-1.jpg" alt="Image" style="max-width: 10%; max-height: 10%; border-radius: 10px;">
+            <div style="width: 100px; height: 10%; overflow: hidden;">
+                <img src="<%=product.image_url%>" alt="Image" style="max-width: 100px; max-height: 100px; border-radius: 10px; object-fit: cover;">
+
+            </div>
             
             <!-- Information Container - Middle -->
             <div class="vendor_order_info_container">
 
                 <!-- Main information - top middle -->
                 <div class="vendor_order_info">
-                    <h3>Happy Mix, </h3>
-                    <h3>2 Quantity</h3>
+                    <h3><%=product.name%>, </h3>
+                    <h3><%=order.quantity%> Quantity</h3>
                     <h3>to</h3>
-                    <h3>@buyer#1234</h3>
+                    <h3>@<%=user.username%></h3>
                 </div>
     
                 <!-- Sub information - bottom middle -->
                 <div class="vendor_order_subinfo">
-                    <p>Deliver by</p>
-                    <p>September 5th</p>
-                    <p>to</p>
-                    <p>1600 Pennsylvania Avenue</p>
+                    <p>Deliver before the end of the week!</p>
                 </div>    
             </div>
 
             <!-- Price and View Text - Right -->
             <div style="display: flex; flex-direction: row; gap: 20%; align-items: center; margin-right: 5%;">
-                <h2 style="font-family: 'Poppins Light';">$20.21</h2>
+                <h2 style="font-family: 'Poppins Light';">$<%=order.quantity * product.price%></h2>
                 <h3 style="font-family: 'Poppins Light';">View</h3>
             </div>
         </div>

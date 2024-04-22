@@ -28,12 +28,10 @@ CREATE TABLE `hamsterstore_test`.`listings` (
 CREATE TABLE `hamsterstore_test`.`orders` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
-  `seller_id` int DEFAULT NULL,
   `vendor_id` int DEFAULT NULL,
-  `products` int DEFAULT NULL,
-  `quantities` int DEFAULT NULL,
-  `date_of_order` datetime DEFAULT NULL,
-  `date_of_delivery` datetime DEFAULT NULL,
+  `product_id` int DEFAULT NULL,
+  `quantity` int DEFAULT NULL,
+  `has_been_delivered` tinyint unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
 );
