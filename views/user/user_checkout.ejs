@@ -98,7 +98,11 @@
                 </div>
 
                 <!-- Submit Order Button -->
-                <button class="user_checkout_submit_order_button">Submit Order</button>
+                <!-- <button class="user_checkout_submit_order_button">Submit Order</button> -->
+                <form action="" method="post">
+                    <input type="hidden" name="profile" value="<%= profile.id %>"/>
+                    <input type="submit" name="Submit Order" value="Submit Order" />
+                </form>
             </div>
         </div>
     </body>

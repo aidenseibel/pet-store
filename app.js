@@ -40,6 +40,7 @@ app.get('/logout', mainController.getLogout);
 // Post Routes
 app.post('/onboarding', mainController.postOnboarding);
 app.post('/user_product_view', mainController.postCart);
+app.post('/user_checkout', mainController.postOrder);
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

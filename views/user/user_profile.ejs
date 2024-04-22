@@ -28,13 +28,31 @@
                 <!-- Current Orders - shown first -->
                 <div class="user_profile_current_orders_view">
                     <h3>Current Orders</h3>
+
+                    <%if(current_orders.length == 0){%>            
                         <h2 style="font-family: 'Poppins Light';">You do not have any open orders.</h2>
+                    <%} else { 
+                        current_orders.forEach(arr => { 
+                            const [order, product] = arr;
+                            user = profile;
+                            %>
+                            <a href="user_product_view" style="text-decoration: none; color: inherit;"><%- include ('../partials/vendor_order_subview.ejs', { order, product, user }) %></a>
+                            <%
+                        });}
+                    %>
                 </div>
 
                 <!-- Previous Orders - shown second -->
                 <div class="user_profile_previous_orders_view">
                     <h3>Previous Orders</h3>          
+                    <%if(previous_orders.length == 0){%>            
                         <h2 style="font-family: 'Poppins Light';">You do not have any previous orders.</h2>
+                    <%} else { 
+                        previous_orders.forEach(arr => { %>
+                            <h1>hi</h1>
+                            <%
+                    });}
+                    %>
                 </div>
             </div>
             

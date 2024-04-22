@@ -16,10 +16,33 @@ const mainController = {
     res.render('onboarding');
   },
   getProfile: (req, res) => {
-    var profile;
-    dataModel.getSession(function(profile){  
+    dataModel.getSession(function(profile){
       if(profile){
-        res.render('user/user_profile', { profile });
+        dataModel.getUserOrders(profile.id, function(orders){
+          current_orders = [];
+          previous_orders = [];
+          async.each(orders, function(order, callback) {
+              // Retrieve product details for each item ID
+              dataModel.getProduct(order.product_id, function(product) {
+                if(!order.has_been_delivered){
+                  current_orders.push([order, product]);
+                }else{
+                  previous_orders.push([order, product]);
+                }
+                callback(); // Move to the next item
+              });
+          }, function(err) {
+              if (err) {
+                  // Handle error if any
+                  console.error('Error retrieving cart items:', err);
+                  res.status(500).send('Internal Server Error');
+              } else {
+                  // Render the user cart with complete product information
+                  res.render('user/user_profile', { profile, current_orders, previous_orders });
+              }
+          });
+      });
+
       } else {
         res.redirect('/onboarding');
       }
@@ -86,7 +109,7 @@ const mainController = {
             // Retrieve product details for each item ID
             dataModel.getProduct(item.listing, function(product) {
                 // Add the product to the cart_items array
-                cart_items.push(product);
+                cart_items.push([product, item.quantity]);
                 callback(); // Move to the next item
             });
         }, function(err) {
@@ -100,8 +123,12 @@ const mainController = {
                 var shipping = 9.99
                 var total = Math.round(10 ** 2 * (subtotal + tax + shipping)) / 10 ** 2
                 var deliveryDate = getDateAWeekFromNow();
+                var profile = session;
+                console.log(profile);
                 // Render the user cart with complete product information
-                res.render('user/user_checkout', { cart_items, subtotal, tax, shipping, total, deliveryDate});
+                if(cart_items.length != 0){
+                  res.render('user/user_checkout', { cart_items, subtotal, tax, shipping, total, deliveryDate, profile});
+                }
             }
           });
         });
@@ -111,7 +138,6 @@ const mainController = {
     });
   },
   getVendorDashboard: (req, res) => {
-    var profile;
     dataModel.getSession(function(profile){  
       if(profile){
         if(profile.is_vendor){
@@ -154,9 +180,13 @@ const mainController = {
     });
   },
   getVendorProductView: (req, res) => {
-    const product_id = req.body.product_id;
-    const product = dataModel.getProduct(product_id);
-    res.render('vendor/vendor_product_view', { product });
+    const product_id = req.query.listingid;
+    var product;
+    dataModel.getProduct(product_id, function(product){
+      dataModel.getProfile(product.vendor_id, function(vendor){
+        res.render('vendor/vendor_product_view', { product, vendor });
+      });
+    });   
   },
   getNotAVendorView: (req, res) => {
     const product_id = req.body.product_id;
@@ -234,9 +264,7 @@ const mainController = {
           });
         }
       });
-
-		
-	}
+	  }
   },
   postCart: (req, res) => {
     var session;
@@ -256,7 +284,39 @@ const mainController = {
       }
     })
   },
+
+  postOrder: (req, res) => {
+    var session;
+    dataModel.getSession(function(session){
+      if(session){
+        console.log("post order: ", req.body);
+
+        var uid = req.body.profile;
+
+        dataModel.getCart(uid, function(cart){
+          cart.forEach(function(item) {
+            var pid = item.cartitemid;
+            var q = 1;
+            var hbd = 0;
+            dataModel.getProduct(pid, function(listing){
+              var vid = listing.vendor_id;
+              // Insert order for the current item
+              dataModel.insertOrder(uid, vid, pid, q, hbd, function (err,result) {
+                if (err) {
+                  console.error("Error inserting order:", err);
+                }
+              });
+            })
+          });  
+          res.redirect('profile');
+        })
+      } else {
+        res.redirect('/onboarding');
+      }
+    })
+  }
 };
+
 
 function getSubtotal(cartItems) {
   let subtotal = 0;

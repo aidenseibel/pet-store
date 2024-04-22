@@ -156,6 +156,29 @@ const dataModel = {
 		}
 	);},
 
+	getUserOrders: (user_id, callback) => {
+		var orders = [];
+		var sql = mysql.format("SELECT * FROM orders WHERE user_id =?", [user_id]);
+		mysqlConnection.query(sql, (err, results, fields) => {
+			if (err) {
+				throw err
+			} else {
+				results.forEach(function(r) {
+					var l = new Order(
+						r.id,
+						r.user_id,
+						r.vendor_id,
+						r.product_id,
+						r.quantity,
+						r.has_been_delivered,
+					);
+					orders.push(l)
+				});
+			}
+			callback(orders);
+		}
+	);},
+
 	getSession: (callback) => {
 		var sessionuser;
 		const sql = mysql.format("SELECT * FROM session");
@@ -224,6 +247,7 @@ const dataModel = {
 
 		callback(c);
 	},
+	
 	insertCart: (uid, lid, q, callback) => {
 		console.log("putting item in cart");
 		var c = "Failed";
@@ -241,11 +265,29 @@ const dataModel = {
 
 		callback(c);
 	},
-  matchProfile: (u,p,callback) =>{
-	var c;
-	var profile;
-	var sql = mysql.format("SELECT * FROM user WHERE username =? AND password = ?",[u,p]);
-	mysqlConnection.query(sql, (err, results, fields) => {
+	
+	insertOrder: (uid, vid, pid, q, hbd, callback) =>{
+		var c = "Failed";
+
+		var sql = mysql.format("INSERT INTO orders(user_id,vendor_id,product_id,quantity,has_been_delivered) VALUES (?,?,?,?,?)", [uid, vid, pid, q, hbd]);
+
+		mysqlConnection.query(sql, (err, results, fields) => {
+			if (err) {
+				throw err
+			} else {
+				console.log("made insert query to orders without errors");
+				c = "Success";
+			}
+		});
+
+		callback(c);
+	},
+
+	matchProfile: (u,p,callback) =>{
+		var c;
+		var profile;
+		var sql = mysql.format("SELECT * FROM user WHERE username =? AND password = ?",[u,p]);
+		mysqlConnection.query(sql, (err, results, fields) => {
       	  	if (err) {
 				throw err;
           	} else {
