@@ -14,8 +14,14 @@
          <!-- Navigation Bar -->
         <%- include ('../partials/vendor_navigation_bar.ejs') %>
 
-        <!-- Content -->
-        <h2 style="margin-left: 2%;"><%=profile.username %>'s Listings (<%=listings.length %>)</h2>
+        <!-- Title -->
+        <div style="display: flex; flex-flow: row; align-items: center; gap: 5%;">
+            <h2 style="margin-left: 2%;"><%=profile.username %>'s Listings (<%=listings.length %>)</h2>
+            <form action="" method="">
+                <input type="submit" name="Add Listing" value="Add Listing" />
+            </form>
+        </div>
+
 
         <!-- Main Container -->
         <div class="all_listings">
@@ -30,7 +36,7 @@
                     </a>
                 <%
                 });}
-            %>            
+            %>
         </div>
     </body>
 </html>

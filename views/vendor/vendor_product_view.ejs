@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/styles/styles.css">
         <link rel="stylesheet" href="/styles/vendor/vendor_styles.css">
+        <link rel="stylesheet" href="/styles/user/user_product_view_styles.css">
 
         <title>Vendor Product View</title>
     </head>
@@ -16,5 +17,38 @@
 
         <!-- Content -->
         <h2 style="margin-left: 2%;">View Product</h2>
-      </body>
+
+        <!-- Main Container -->
+        <div class="user_product_view">
+
+            <!-- Product information - Left Side-->
+            <div class="user_product_info">
+                <div class="information_row">
+                    <p>Vendor</p>
+                    <p class="product_information_detail_text"><%=vendor.username %> </p>
+                </div>
+                <div class="information_row">
+                    <p>Vendor Location</p>
+                    <p class="product_information_detail_text"><%=vendor.physical_address %></p>
+                </div>
+                <div class="information_row">
+                    <p>Amount</p>
+                    <p class="product_information_detail_text"><%=product.amount %></p>
+                </div>
+                <div class="information_row">
+                    <p>Ingredients</p>
+                    <p class="product_information_detail_text"><%= product.ingredients %></p>
+                </div>
+                <div class="information_row">
+                    <p>Description</p>
+                    <p class="product_information_detail_text"><%= product.description %></p>
+                </div>
+            </div>
+
+            <!-- Product Image - Right Side, Embedded in a Container-->
+            <div class="product_view_image_container">
+                <img class="product_view_image" src="<%= product.image_url%>" alt="Image">
+            </div>
+        </div>
+    </body>
 </html>

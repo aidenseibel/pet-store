@@ -23,13 +23,13 @@
                 <div class="vendor_order_info">
                     <h3><%=product.name%>, </h3>
                     <h3><%=order.quantity%> Quantity</h3>
-                    <h3>to</h3>
-                    <h3>@<%=user.username%></h3>
                 </div>
     
                 <!-- Sub information - bottom middle -->
                 <div class="vendor_order_subinfo">
-                    <p>Deliver before the end of the week!</p>
+                    <p>From <%=product.vendor_username%> to </p>
+                    <p><%=user.username%> in </p>
+                    <p>7 days</p>
                 </div>    
             </div>
 

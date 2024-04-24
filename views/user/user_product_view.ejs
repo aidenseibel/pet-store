@@ -55,11 +55,11 @@
             <h1 style="margin-left: 2%; flex-grow: 1;">$<%= product.price%></h1>
             <!-- <input class="quantity_form_input" type="text" placeholder="1"> -->
 
-            <form action="" method="post">
+            <form action="" method="post" >
                 <input type="hidden" name="userId" value="test"/>
                 <input type="hidden" name="itemId" value="<%= product.id %>"/>
                 <input type="hidden" name="quantity" value="1" />
-                <input type="submit" name="Add to Cart" value="Add to Cart" />
+                <input type="submit" name="Add to Cart" value="Add to Cart" class="submit_button"/>
             </form>
         </div>
     </body>

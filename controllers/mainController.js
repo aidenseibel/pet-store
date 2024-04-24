@@ -187,11 +187,6 @@ const mainController = {
       });
     });   
   },
-  getNotAVendorView: (req, res) => {
-    const product_id = req.body.product_id;
-    const product = dataModel.getProduct(product_id);
-    res.render('vendor/vendor_product_view', { product });
-  },
   getVendorListings: (req, res) => {
     var profile;
     dataModel.getSession(function(profile){  
@@ -252,9 +247,7 @@ const mainController = {
             if(status == "Success"){
               var sessionstatus;
               dataModel.createSession(loginUser,function(sessionstatus){
-                var profile = loginUser;
-                console.log("profile: ", profile)
-                res.render('user/user_profile', { profile });
+                res.redirect('profile');
               });
             }
             if(status != "Success"){
@@ -361,5 +354,17 @@ function getDateAWeekFromNow() {
   // Return the date string in the format "MMMM DDth"
   return `${monthName} ${day}`;
 }
+
+function searchListings(list, searchTerm) {
+  // Filter the list based on whether the name or vendor_username contains the search term
+  return list.filter(item => {
+      // Check if the name or vendor_username contains the search term (case-insensitive)
+      return (
+          item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          item.vendor_username.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+  });
+}
+
 
 module.exports = mainController;
