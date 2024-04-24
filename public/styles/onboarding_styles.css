@@ -34,7 +34,6 @@
     font-size: small;
 }
 
-
 .submit_onboard_button{
     padding: 5%;
     border-radius: 5px;
@@ -50,5 +49,4 @@
     background-color: #f3f3f3;
     border-radius: 10px;
     padding: 2%;
-    gap: 20px;
 }

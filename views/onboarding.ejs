@@ -23,12 +23,12 @@
             <div class="login_signup_container">
                 <h3 style="padding: 20px;">Create your account to get started.</h3>
                 <form method = "POST" style="padding: 20px;">
-		              <div><input name="newEmail" "id=newEmail" type="text" placeholder="Email"></div>
-		              <div><input name="newUsername" "id=newUsername" type="text" placeholder="Username"></div>
-		              <div><input name="newPassword" "id=newPassword" type="text" placeholder="Password"></div>
-		              <div><input type="text" placeholder="Confirm Password"></div>
-		              <div><input type="hidden" name="action" value="createaccount" /></div>
-		              <div><button>Create Account</button></div>
+		              <div style="margin-bottom: 20px;"><input name="newEmail" "id=newEmail" type="text" placeholder="Email" class="onboarding_input_public"></div>
+		              <div style="margin-bottom: 20px;"><input name="newUsername" "id=newUsername" type="text" placeholder="Username" class="onboarding_input_public"></div>
+		              <div style="margin-bottom: 20px;"><input name="newPassword" "id=newPassword" type="password" placeholder="Password" class="onboarding_input_private"></div>
+		              <div style="margin-bottom: 20px;"><input type="password" placeholder="Confirm Password" class="onboarding_input_private"></div>
+		              <div style="margin-bottom: 20px;"><input type="hidden" name="action" value="createaccount" /></div>
+		              <div><button class="submit_onboard_button">Create Account</button></div>
                 </form>
             </div>
 
@@ -36,10 +36,10 @@
             <div class="login_signup_container">
                 <h3 style="padding: 20px;">Already have an account? Sign in.</h3>
                 <form method = "POST" style="padding: 20px;">
-		              <div><input name="queryUsername" "id=queryUsername" type="text" placeholder="Username"></div>
-		              <div><input name="queryPassword" "id=queryPassword" type="text" placeholder="Password"></div>
-		              <div><input type="hidden" name="action" value="login"></div>
-		              <div><button>Sign In</button></div>
+		              <div style="margin-bottom: 20px;"><input name="queryUsername" "id=queryUsername" type="text" placeholder="Username" class="onboarding_input_public"></div>
+		              <div style="margin-bottom: 20px;"><input name="queryPassword" "id=queryPassword" type="password" placeholder="Password" class="onboarding_input_private"></div>
+		              <div style="margin-bottom: 20px;"><input type="hidden" name="action" value="login"></div>
+		              <div><button class="submit_onboard_button">Sign In</button></div>
                 </form>
             </div>
         </div>

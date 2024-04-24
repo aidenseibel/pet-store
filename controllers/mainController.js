@@ -75,7 +75,7 @@ const mainController = {
               // Retrieve product details for each item ID
               dataModel.getProduct(item.listing, function(product) {
                   // Add the product to the cart_items array
-                  cart_items.push(product);
+                  cart_items.push([product, item.quantity]);
                   callback(); // Move to the next item
               });
           }, function(err) {
@@ -84,6 +84,7 @@ const mainController = {
                   console.error('Error retrieving cart items:', err);
                   res.status(500).send('Internal Server Error');
               } else {
+                console.log("Cart:", cart_items)
                   var subtotal = getSubtotal(cart_items);
                   var tax = Math.round(10 ** 2 * (subtotal * 0.0825)) / 10 ** 2
                   var shipping = 9.99
@@ -124,8 +125,6 @@ const mainController = {
                 var total = Math.round(10 ** 2 * (subtotal + tax + shipping)) / 10 ** 2
                 var deliveryDate = getDateAWeekFromNow();
                 var profile = session;
-                console.log(profile);
-                // Render the user cart with complete product information
                 if(cart_items.length != 0){
                   res.render('user/user_checkout', { cart_items, subtotal, tax, shipping, total, deliveryDate, profile});
                 }
@@ -295,7 +294,7 @@ const mainController = {
 
         dataModel.getCart(uid, function(cart){
           cart.forEach(function(item) {
-            var pid = item.cartitemid;
+            var pid = item.listing;
             var q = 1;
             var hbd = 0;
             dataModel.getProduct(pid, function(listing){
@@ -336,9 +335,11 @@ const mainController = {
 
 
 function getSubtotal(cartItems) {
-  let subtotal = 0;
-  cartItems.forEach(item => {
-      subtotal += item.price; // Assuming each item has a 'price' property
+  console.log(cartItems)
+  var subtotal = 0;
+  cartItems.forEach(arr => {
+    [item, quantity] = arr
+    subtotal += item.price; // Assuming each item has a 'price' property
   });
   return subtotal;
 }
@@ -362,63 +363,3 @@ function getDateAWeekFromNow() {
 }
 
 module.exports = mainController;
-
-
-//EXAMPLE DATA FOR DEBUGGING===================================
-const sample_user = {
-  username: "leeroy tiger",
-  email: "leeroy@trinity.edu",
-  physical_address: "1 Trinity Place",
-  city: "San Antonio",
-  state: "Texas",
-  zip: "78212",
-  current_orders: [1],
-  previous_orders: [1],
-  cart: [[0, 1], [1, 1]],
-  is_vendor: true,
-  vendor_products: [2],
-  vendor_orders: [1, 2, 3],
-}
-
-const sample_products = [
-  {
-    id: 0,
-    name: "Happy Mix",
-    price: 5.99,
-    image_url: "https://www.creativefabrica.com/wp-content/uploads/2023/04/06/Cute-Hamster-kawaii-clipart-Graphics-66428546-1.jpg",
-    vendor_name: "Maria",
-    vendor_location: "London, UK",
-    amount: "2 pounds",
-    ingredients: ["carrots", "potatoes", "wheat"],
-    description: "A lovely happy mix for your hamster!"
-  },
-
-  {
-    id: 1,
-    name: "Rainy Day Mix",
-    price: 15.99,
-    image_url: "https://i.pinimg.com/474x/35/96/e0/3596e03b599bb2ade609ce0318bf4620.jpg",
-    vendor_name: "Mr. Rain's Concoctions",
-    vendor_location: "Washington, USA",
-    amount: "5 kilograms",
-    ingredients: ["water", "eggs", "celery", "caffeine"],
-    description: "Is is a very rainy day? Let your hamster indulge in my rainy day mix for a wonderful, productive afternoon!"
-  },
-  {
-    id: 2,
-    name: "Prada Mix",
-    price: 150.99,
-    image_url: "https://as1.ftcdn.net/v2/jpg/04/65/04/54/1000_F_465045445_tAqxYnT9cttrJTOz4ZZcbeKuyUUVmkvs.jpg",
-    vendor_name: "Prada Inc.",
-    vendor_location: "Paris, France",
-    amount: "2 kilograms",
-    ingredients: ["Red 40", "Prada Homme", "Lorem ipsum dolor sit amet", "Consectetur adipiscing elit", "Curabitur dapibus", "orci ornare felis sodales"],
-    description: "Morbi et maximus nisl, a euismod augue. Integer hendrerit nisl tempor leo interdum, non maximus mauris accumsan. Proin neque neque, imperdiet eget eros at, feugiat suscipit lectus. Mauris eleifend libero in velit interdum, sit amet semper elit luctus. Ut a elit nibh. Maecenas bibendum aliquam ligula vel ultricies. Ut blandit ex nisl, at sagittis neque viverra sed. In in arcu mollis, viverra sem id, molestie eros. Donec mauris metus, maximus sollicitudin lorem eu, rutrum venenatis mauris. Maecenas vel tincidunt neque, et imperdiet urna. Aenean at dolor quis quam euismod sodales.    "
-  }
-
-]
-
-const sample_cart = {
-  products: [0, 1, 2], // ids
-  quantities: [1, 2, 3] // by index
-}

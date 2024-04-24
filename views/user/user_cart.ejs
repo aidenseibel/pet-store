@@ -34,9 +34,11 @@
                 
                 <!-- Cart contents -->
                     <%} else { 
-                    cart_items.forEach(listing => { %>
+                    cart_items.forEach(item => { 
+                        [listing, quantity] = item
+                        %>
                         <a href="/user_product_view?listingid=<%= listing.id %>" style="text-decoration: none; color: inherit; width: 90%;">
-                            <%- include ('../partials/listing_subview_list.ejs', { listing }) %>
+                            <%- include ('../partials/listing_subview_list.ejs', { listing, quantity }) %>
                         </a>
                 <%});}%>
             </div>

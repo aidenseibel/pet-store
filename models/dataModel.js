@@ -101,7 +101,6 @@ const dataModel = {
 			if (err) {
 				throw err
 			} else {
-
 					const r = results[0];
 					var l = new Listing(
 						r.id,
@@ -253,7 +252,7 @@ const dataModel = {
 		console.log("putting item in cart");
 		var c = "Failed";
 
-		var sql = mysql.format("INSERT INTO cart(userid,listing, quantity) VALUES (?,?,?)", [uid, lid, q]);
+		var sql = mysql.format("INSERT INTO cart(userid,listing,quantity) VALUES (?,?,?)", [uid, lid, q]);
 
 		mysqlConnection.query(sql, (err, results, fields) => {
 			if (err) {
