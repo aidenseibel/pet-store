@@ -7,14 +7,14 @@
     border: 2px solid #dddddd;
     border-radius: 5px;
     outline: none;
-    background: #eeeeee;
+    background: #ff0000;
     flex-grow: 4;
     font-family: 'Poppins';
     font-size: small;
 }
 
 .all_listings{
-    background-color: #ffffff;
+    background-color: #ff00cc;
     margin-left: 2%;
     display: flex;
     flex-flow: row wrap;
@@ -23,7 +23,7 @@
 }
 
 .listing_subview_list{
-    background-color: #ffd9d9;
+    background-color: #00ffd5;
     border-radius: 10px;
     margin-left: -5%;
     padding-left: 5%;
