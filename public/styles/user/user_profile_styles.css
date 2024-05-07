@@ -14,21 +14,21 @@
 }
 
 .user_profile_current_orders_view{
-    background-color: lightpink;
+    /* background-color: lightpink; */
     padding: 2%;
     border-radius: 10px;
     margin-bottom: 2%;
 }
 
 .user_profile_previous_orders_view{
-    background-color: lightpink;
+    /* background-color: lightpink; */
     padding: 2%;
     border-radius: 10px;
 }
 
 .user_profile_information_view{
     width: 35%;
-    background-color: #d3d3d3;
+    /* background-color: #d3d3d3; */
     padding: 2%;
     border-radius: 10px;
 }

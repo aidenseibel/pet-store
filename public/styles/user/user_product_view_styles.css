@@ -14,7 +14,7 @@
     display: flex;
     padding: 2%;
     border-radius: 10px;
-    background-color: #ffd9d9;
+    /* background-color: #ffd9d9; */
     flex-direction: column;
     width: 50%;
 }

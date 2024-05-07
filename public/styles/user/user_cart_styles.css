@@ -11,7 +11,7 @@
 }
 
 .shopping_cart_listings{
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     gap: 10px;
     display: flex;
     flex-flow: column nowrap;
@@ -25,5 +25,5 @@
     padding: 2%;
     border-radius: 10px;
     flex-grow: 1;
-    background-color: #f3f3f3;
+    /* background-color: #f3f3f3; */
 }
