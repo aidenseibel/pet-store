@@ -25,7 +25,7 @@ const dataModel = {
 						r.vendor_id,
 						r.vendor_username,
 						r.image_url,
-						r.amount,
+						r.weight,
 						r.ingredients,
 						r.description
 					);
@@ -53,7 +53,7 @@ const dataModel = {
 						r.vendor_id,
 						r.vendor_username,
 						r.image_url,
-						r.amount,
+						r.weight,
 						r.ingredients,
 						r.description
 					);
@@ -109,7 +109,7 @@ const dataModel = {
 						r.vendor_id,
 						r.vendor_username,
 						r.image_url,
-						r.amount,
+						r.weight,
 						r.ingredients,
 						r.description
 					);
